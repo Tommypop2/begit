@@ -3,7 +3,7 @@
 ## Cloning to a directory
 
 ```ts
-import { downloadAndExtract } from "@degit/core";
+import { downloadAndExtract } from "@begit/core";
 await downloadAndExtract({
 	repo: {
 		owner: "Tommypop2",
