@@ -24,15 +24,8 @@ export const downloadToFile = async (
 	return location;
 };
 export const extractFile = async (tarPath: PathLike, path: string) => {
-	await mkdir(dirname(path), { recursive: true });
-	await new Promise<void>((res, rej) => {
-		createReadStream(tarPath).pipe(
-			extract({ strip: 1, cwd: dirname(path) }, undefined, (err) => {
-				if (err) rej();
-				res();
-			})
-		);
-	});
+	await mkdir(path, { recursive: true });
+	createReadStream(tarPath).pipe(extract({ strip: 1, cwd: path }));
 };
 
 const main = async () => {
@@ -41,6 +34,7 @@ const main = async () => {
 		owner: "solidjs-community",
 		name: "solid-cli",
 	});
-	await extractFile(tarPath, join(thisDir, "solid-cli"));
+	const to = join(thisDir, "solid-cli");
+	await extractFile(tarPath, to);
 };
 main();
