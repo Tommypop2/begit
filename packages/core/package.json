@@ -1,6 +1,6 @@
 {
 	"name": "@begit/core",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"description": "Blazingly fast tool for cloning git repositories, with no reliance on local `git`, or `tar` installs",
 	"type": "module",
 	"files": [

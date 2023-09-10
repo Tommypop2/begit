@@ -41,20 +41,28 @@ export const extractFile = async (
 	dest: string,
 	subdir: string | null = null
 ) => {
-	subdir = subdir?.startsWith("/") ? subdir : `/${subdir}`;
-	subdir = subdir.endsWith("/") ? subdir : `${subdir}/`;
+	if (subdir) {
+		subdir = subdir?.startsWith("/") ? subdir : `/${subdir}`;
+		subdir = subdir?.endsWith("/") ? subdir : `${subdir}/`;
+	}
 	await mkdir(dest, { recursive: true });
 	const subdirs = await getEntryFilenames(tarPath);
 	const dir = subdirs.find((d) => (subdir ? d.includes(subdir) : false));
-	const strip = dir ? dir.split("/").length - 1 : 1;
 	if (subdir && !dir) throw new Error("Subdirectory not found");
-	extract(
-		{
-			file: tarPath.toString(),
-			strip,
-			C: dest,
-		},
-		dir ? [dir] : undefined
+	const strip = dir ? dir.split("/").length - 1 : 1;
+	await new Promise<void>((res, rej) =>
+		extract(
+			{
+				file: tarPath.toString(),
+				strip,
+				C: dest,
+			},
+			dir ? [dir] : undefined,
+			(err) => {
+				if (err) rej(err);
+				res();
+			}
+		)
 	);
 };
 type DownloadAndExtract = { repo: Installable; dest?: string; cwd?: string };

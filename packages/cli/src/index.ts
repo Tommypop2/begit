@@ -15,7 +15,7 @@ const main = async () => {
 			}),
 			dest: positional({ type: optional(string), displayName: "Destination" }),
 			subdir: option({
-				type: string,
+				type: optional(string),
 				long: "subdir",
 				short: "s",
 			}),
