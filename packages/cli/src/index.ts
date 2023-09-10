@@ -25,7 +25,6 @@ const main = async () => {
 			const repo = parts.pop();
 			const owner = parts.pop();
 			const branch = url.split("#")[1] as string | undefined;
-			subdir = subdir.endsWith("/") ? subdir : `${subdir}/`;
 			if (!repo || !owner) throw new Error("Invalid URL");
 			await downloadAndExtract({
 				repo: { owner, name: repo, branch, subdir },

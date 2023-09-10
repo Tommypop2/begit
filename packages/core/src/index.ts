@@ -42,13 +42,12 @@ export const extractFile = async (
 	subdir: string | null = null
 ) => {
 	subdir = subdir?.startsWith("/") ? subdir : `/${subdir}`;
+	subdir = subdir.endsWith("/") ? subdir : `${subdir}/`;
 	await mkdir(dest, { recursive: true });
 	const subdirs = await getEntryFilenames(tarPath);
-	// console.log("Subdirs", subdirs);
 	const dir = subdirs.find((d) => (subdir ? d.includes(subdir) : false));
-	// console.log("Matched", dir);
 	const strip = dir ? dir.split("/").length - 1 : 1;
-	// console.log("ToRemove", strip);
+	if (subdir && !dir) throw new Error("Subdirectory not found");
 	extract(
 		{
 			file: tarPath.toString(),
