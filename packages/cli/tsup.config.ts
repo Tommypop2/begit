@@ -11,4 +11,8 @@ export default defineConfig({
 	clean: true,
 	noExternal: [/.*/],
 	treeshake: true,
+	banner: {
+		js: `import { createRequire } from "module";
+		const require = createRequire(import.meta.url);`,
+	},
 });

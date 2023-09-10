@@ -44,11 +44,15 @@ export const extractFile = async (
 	subdir = subdir?.startsWith("/") ? subdir : `/${subdir}`;
 	await mkdir(dest, { recursive: true });
 	const subdirs = await getEntryFilenames(tarPath);
+	// console.log("Subdirs", subdirs);
 	const dir = subdirs.find((d) => (subdir ? d.includes(subdir) : false));
+	// console.log("Matched", dir);
+	const strip = dir ? dir.split("/").length - 1 : 1;
+	// console.log("ToRemove", strip);
 	extract(
 		{
 			file: tarPath.toString(),
-			strip: subdir ? subdir.split("/").length : 1,
+			strip,
 			C: dest,
 		},
 		dir ? [dir] : undefined
