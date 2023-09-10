@@ -49,3 +49,17 @@ You can also specify the desired branch via a `#`:
 ```bash
 begit Tommypop2/begit#main
 ```
+
+### Cloning a subdirectory within a repo
+
+Use any of the above options in conjunction with the `--subdir` flag.
+
+```bash
+begit Tommypop2/begit --subdir packages
+```
+
+Or, shortened to `-s`
+
+```bash
+begit Tommypop2/begit -s packages
+```
