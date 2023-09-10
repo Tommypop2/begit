@@ -1,13 +1,17 @@
-import { dirname, join } from "path";
+import { join } from "path";
 import { cachedir, fetchLatestCommit, fetchTarball, toFile } from "./utils";
-import { PathLike, createReadStream, createWriteStream, existsSync } from "fs";
-import { extract } from "tar";
+import { PathLike, existsSync } from "fs";
+import { extract, list } from "tar";
 import { mkdir } from "fs/promises";
 export type Repository = {
 	owner: string;
 	name: string;
 	branch?: string;
 };
+export type Installable = Repository & {
+	subdir?: string;
+};
+
 type Options = {
 	cache: boolean;
 };
@@ -23,9 +27,31 @@ export const downloadToFile = async (
 	await toFile(location, tarball);
 	return location;
 };
-export const extractFile = async (tarPath: PathLike, path: string) => {
-	await mkdir(path, { recursive: true });
-	createReadStream(tarPath).pipe(extract({ strip: 1, cwd: path }));
+const getEntryFilenames = async (tarballFilename: any) => {
+	const filenames: string[] = [];
+	await list({
+		file: tarballFilename,
+		onentry: (entry) => filenames.push(entry.path),
+	});
+	return filenames;
+};
+
+export const extractFile = async (
+	tarPath: PathLike,
+	dest: string,
+	subdir: string | null = null
+) => {
+	await mkdir(dest, { recursive: true });
+	const subdirs = await getEntryFilenames(tarPath);
+	const dir = subdirs.find((d) => (subdir ? d.includes(subdir) : false));
+	extract(
+		{
+			file: tarPath.toString(),
+			strip: subdir ? subdir.split("/").length : 1,
+			C: dest,
+		},
+		dir ? [dir] : undefined
+	);
 };
 
 const main = async () => {
@@ -35,6 +61,6 @@ const main = async () => {
 		name: "solid-cli",
 	});
 	const to = join(thisDir, "solid-cli");
-	await extractFile(tarPath, to);
+	await extractFile(tarPath, to, "/packages");
 };
 main();
