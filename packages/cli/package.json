@@ -1,8 +1,12 @@
 {
 	"name": "@begit/cli",
-	"version": "0.0.1",
-	"description": "",
+	"version": "0.0.2",
+	"description": "A CLI for using begit",
 	"type": "module",
+	"files": [
+		"dist",
+		"types"
+	],
 	"bin": {
 		"begit": "./dist/index.js"
 	},
@@ -24,7 +28,8 @@
 	"dependencies": {
 		"@clack/prompts": "^0.7.0",
 		"cmd-ts": "^0.13.0",
-		"tiny-updater": "^3.5.1"
+		"tiny-updater": "^3.5.1",
+		"@begit/core": "workspace:*"
 	},
 	"publishConfig": {
 		"access": "public"

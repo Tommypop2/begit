@@ -13,6 +13,7 @@
 		"./packages/*"
 	],
 	"devDependencies": {
+		"@changesets/cli": "^2.26.2",
 		"turbo": "^1.10.13"
 	}
 }

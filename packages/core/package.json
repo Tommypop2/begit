@@ -1,12 +1,16 @@
 {
 	"name": "@begit/core",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "",
 	"type": "module",
+	"files": [
+		"dist",
+		"types"
+	],
 	"exports": {
 		".": {
 			"types": "./types/index.d.ts",
-			"import": "./dist/index.mjs"
+			"import": "./dist/index.js"
 		}
 	},
 	"scripts": {

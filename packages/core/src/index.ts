@@ -54,14 +54,14 @@ export const extractFile = async (
 		dir ? [dir] : undefined
 	);
 };
-export const downloadAndExtract = async () => {};
-const main = async () => {
-	const thisDir = process.cwd();
-	const tarPath = await downloadToFile({
-		owner: "solidjs-community",
-		name: "solid-cli",
-	});
-	const to = join(thisDir, "solid-cli");
-	await extractFile(tarPath, to, "packages");
+type DownloadAndExtract = { repo: Installable; dest?: string; cwd?: string };
+export const downloadAndExtract = async ({
+	repo,
+	dest,
+	cwd,
+}: DownloadAndExtract) => {
+	cwd = cwd ?? process.cwd();
+	dest = dest ?? repo.name;
+	const tarPath = await downloadToFile(repo);
+	await extractFile(tarPath, join(cwd, dest), repo.subdir);
 };
-main();
