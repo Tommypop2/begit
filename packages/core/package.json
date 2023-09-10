@@ -1,0 +1,32 @@
+{
+	"name": "@begit/core",
+	"version": "0.0.1",
+	"description": "",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./types/index.d.ts",
+			"import": "./dist/index.mjs"
+		}
+	},
+	"scripts": {
+		"test": "vitest",
+		"build": "tsc && tsup"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/node": "^20.6.0",
+		"@types/tar": "^6.1.5",
+		"tsup": "^7.2.0",
+		"typescript": "^5.2.2",
+		"vitest": "^0.34.4"
+	},
+	"dependencies": {
+		"tar": "^6.2.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

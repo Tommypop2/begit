@@ -14,5 +14,5 @@
 		"noFallthroughCasesInSwitch": true,
 		"outDir": "types"
 	},
-	"include": ["packages/core/src/*"]
+	"include": ["src/*"]
 }

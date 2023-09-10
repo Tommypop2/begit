@@ -41,6 +41,7 @@ export const extractFile = async (
 	dest: string,
 	subdir: string | null = null
 ) => {
+	subdir = subdir?.startsWith("/") ? subdir : `/${subdir}`;
 	await mkdir(dest, { recursive: true });
 	const subdirs = await getEntryFilenames(tarPath);
 	const dir = subdirs.find((d) => (subdir ? d.includes(subdir) : false));
@@ -53,7 +54,7 @@ export const extractFile = async (
 		dir ? [dir] : undefined
 	);
 };
-
+export const downloadAndExtract = async () => {};
 const main = async () => {
 	const thisDir = process.cwd();
 	const tarPath = await downloadToFile({
@@ -61,6 +62,6 @@ const main = async () => {
 		name: "solid-cli",
 	});
 	const to = join(thisDir, "solid-cli");
-	await extractFile(tarPath, to, "/packages");
+	await extractFile(tarPath, to, "packages");
 };
 main();
