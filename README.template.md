@@ -1,9 +1,11 @@
 # Begit
 
+A smaller and lighter degit alternative with typescript support
+
 ## Begit CLI
 
 {{cli}}
 
-## From javascript
+## Usage from javascript
 
 {{core}}
