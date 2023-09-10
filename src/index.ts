@@ -25,7 +25,14 @@ export const downloadToFile = async (
 };
 export const extractFile = async (tarPath: PathLike, path: string) => {
 	await mkdir(dirname(path), { recursive: true });
-	createReadStream(tarPath).pipe(extract({ strip: 1, cwd: dirname(path) }));
+	await new Promise<void>((res, rej) => {
+		createReadStream(tarPath).pipe(
+			extract({ strip: 1, cwd: dirname(path) }, undefined, (err) => {
+				if (err) rej();
+				res();
+			})
+		);
+	});
 };
 
 const main = async () => {
