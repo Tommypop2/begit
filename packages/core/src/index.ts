@@ -18,7 +18,7 @@ type Options = {
 export const downloadToFile = async (
 	repo: Repository,
 	options: Options = { cache: true }
-): Promise<PathLike> => {
+): Promise<string> => {
 	const { owner, name, branch } = repo;
 	const hash = await fetchLatestCommit(owner, name);
 	const location = join(cachedir(), `${owner}-${name}-${hash}.tar.gz`);
@@ -27,7 +27,7 @@ export const downloadToFile = async (
 	await toFile(location, tarball);
 	return location;
 };
-const getEntryFilenames = async (tarballFilename: any) => {
+const getEntryFilenames = async (tarballFilename: string) => {
 	const filenames: string[] = [];
 	await list({
 		file: tarballFilename,
@@ -37,7 +37,7 @@ const getEntryFilenames = async (tarballFilename: any) => {
 };
 
 export const extractFile = async (
-	tarPath: PathLike,
+	tarPath: string,
 	dest: string,
 	subdir: string | null = null
 ) => {

@@ -2,6 +2,13 @@
 	"name": "@begit/cli",
 	"version": "0.0.6",
 	"description": "A CLI for using begit",
+	"author": "",
+	"license": "MIT",
+	"homepage": "https://github.com/Tommypop2/begit",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Tommypop2/begit"
+	},
 	"type": "module",
 	"files": [
 		"dist",
@@ -15,8 +22,6 @@
 		"start": "jiti src/index.ts"
 	},
 	"keywords": [],
-	"author": "",
-	"license": "MIT",
 	"devDependencies": {
 		"@types/node": "^20.6.0",
 		"changesets": "^1.0.2",
