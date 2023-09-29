@@ -3,7 +3,7 @@ import { fetchLatestCommit, fetchTarball } from "../src/utils";
 describe("utils", () => {
 	test("fetchTarball", async () => {
 		const res = await fetchTarball("solidjs-community", "solid-cli");
-		console.log(res);
+		expect(res.name).toBeTypeOf("string");
 	});
 	test("fetchLatestCommit", async () => {
 		const res = await fetchLatestCommit("solidjs-community", "solid-cli");
