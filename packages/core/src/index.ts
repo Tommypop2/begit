@@ -66,7 +66,7 @@ export type DownloadAndExtract = {
 	repo: Installable;
 	dest?: string;
 	cwd?: string;
-	opts: Options;
+	opts?: Options;
 };
 export const downloadAndExtract = async ({
 	repo,
