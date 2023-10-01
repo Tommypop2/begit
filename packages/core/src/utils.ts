@@ -37,13 +37,13 @@ export const toFile = async (path: PathLike, tarball: Tarball) => {
 	const stream = createWriteStream(path);
 	await finished(Readable.fromWeb(tarball.body).pipe(stream));
 };
-export const fetchLatestCommit = async (
-	owner: string,
-	repo: string
-): Promise<string> => {
+export type CommitData = {
+	sha: string;
+};
+export const fetchLatestCommit = async (owner: string, repo: string) => {
 	const res = await fetch(
 		`https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`
 	);
-	const json = await res.json();
+	const json = (await res.json()) as CommitData[];
 	return json[0].sha;
 };
