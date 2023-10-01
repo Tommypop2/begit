@@ -1,8 +1,8 @@
 import { join } from "path";
 import { cachedir, fetchLatestCommit, fetchTarball, toFile } from "./utils";
-import { PathLike, existsSync } from "fs";
+import { existsSync } from "fs";
 import { extract, list } from "tar";
-import { mkdir } from "fs/promises";
+import { mkdir, unlink } from "fs/promises";
 export type Repository = {
 	owner: string;
 	name: string;
@@ -12,13 +12,7 @@ export type Installable = Repository & {
 	subdir?: string;
 };
 
-type Options = {
-	cache: boolean;
-};
-export const downloadToFile = async (
-	repo: Repository,
-	options: Options = { cache: true }
-): Promise<string> => {
+export const downloadToFile = async (repo: Repository): Promise<string> => {
 	const { owner, name, branch } = repo;
 	const hash = await fetchLatestCommit(owner, name);
 	const location = join(cachedir(), `${owner}-${name}-${hash}.tar.gz`);
@@ -65,14 +59,28 @@ export const extractFile = async (
 		)
 	);
 };
-type DownloadAndExtract = { repo: Installable; dest?: string; cwd?: string };
+export type Options = {
+	cache: boolean;
+};
+export type DownloadAndExtract = {
+	repo: Installable;
+	dest?: string;
+	cwd?: string;
+	opts: Options;
+};
 export const downloadAndExtract = async ({
 	repo,
 	dest,
 	cwd,
+	opts = { cache: true },
 }: DownloadAndExtract) => {
+	const caching = opts.cache;
 	cwd = cwd ?? process.cwd();
 	dest = dest ?? repo.name;
 	const tarPath = await downloadToFile(repo);
 	await extractFile(tarPath, join(cwd, dest), repo.subdir);
+	// Remove tarball download if not caching
+	if (!caching) {
+		await unlink(tarPath);
+	}
 };
