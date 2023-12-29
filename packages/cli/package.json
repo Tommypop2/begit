@@ -1,6 +1,6 @@
 {
 	"name": "@begit/cli",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"description": "A CLI for using begit",
 	"author": "",
 	"license": "MIT",
@@ -23,12 +23,12 @@
 	},
 	"keywords": [],
 	"devDependencies": {
-		"@types/node": "^20.9.0",
+		"@types/node": "^20.10.5",
 		"changesets": "^1.0.2",
 		"jiti": "^1.21.0",
-		"tsup": "^7.2.0",
-		"typescript": "^5.2.2",
-		"vitest": "^0.34.6"
+		"tsup": "^8.0.1",
+		"typescript": "^5.3.3",
+		"vitest": "^1.1.0"
 	},
 	"dependencies": {
 		"@clack/prompts": "^0.7.0",

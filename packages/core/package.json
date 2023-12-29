@@ -1,6 +1,6 @@
 {
 	"name": "@begit/core",
-	"version": "0.0.11",
+	"version": "0.0.12",
 	"description": "Blazingly fast tool for cloning git repositories, with no reliance on local `git`, or `tar` installs",
 	"author": "",
 	"license": "MIT",
@@ -27,11 +27,11 @@
 	},
 	"keywords": [],
 	"devDependencies": {
-		"@types/node": "^20.9.0",
-		"@types/tar": "^6.1.9",
-		"tsup": "^7.2.0",
-		"typescript": "^5.2.2",
-		"vitest": "^0.34.6"
+		"@types/node": "^20.10.5",
+		"@types/tar": "^6.1.10",
+		"tsup": "^8.0.1",
+		"typescript": "^5.3.3",
+		"vitest": "^1.1.0"
 	},
 	"dependencies": {
 		"tar": "^6.2.0"
