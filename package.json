@@ -15,8 +15,8 @@
 	],
 	"devDependencies": {
 		"@changesets/cli": "^2.27.1",
-		"@types/node": "^20.10.5",
+		"@types/node": "^20.11.5",
 		"jiti": "^1.21.0",
-		"turbo": "^1.11.2"
+		"turbo": "^1.11.3"
 	}
 }
