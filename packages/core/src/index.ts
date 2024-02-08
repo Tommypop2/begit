@@ -33,7 +33,8 @@ const getEntryFilenames = async (tarballFilename: string) => {
 export const extractFile = async (
 	tarPath: string,
 	dest: string,
-	subdir: string | null = null
+	subdir: string | null = null,
+	overwrite = false
 ) => {
 	if (subdir) {
 		subdir = subdir?.startsWith("/") ? subdir : `/${subdir}`;
@@ -50,6 +51,7 @@ export const extractFile = async (
 				file: tarPath.toString(),
 				strip,
 				C: dest,
+				k: !overwrite,
 			},
 			dir ? [dir] : undefined,
 			(err) => {
