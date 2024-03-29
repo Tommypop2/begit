@@ -10,10 +10,7 @@
 		"url": "https://github.com/Tommypop2/begit"
 	},
 	"type": "module",
-	"files": [
-		"dist",
-		"types"
-	],
+	"files": ["dist", "types"],
 	"bin": {
 		"begit": "./dist/index.js"
 	},

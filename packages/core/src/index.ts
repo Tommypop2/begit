@@ -34,7 +34,7 @@ export const extractFile = async (
 	tarPath: string,
 	dest: string,
 	subdir: string | null = null,
-	overwrite = false
+	overwrite = false,
 ) => {
 	if (subdir) {
 		subdir = subdir?.startsWith("/") ? subdir : `/${subdir}`;
@@ -57,8 +57,8 @@ export const extractFile = async (
 			(err) => {
 				if (err) rej(err);
 				res();
-			}
-		)
+			},
+		),
 	);
 };
 export type Options = {
