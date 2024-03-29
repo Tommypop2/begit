@@ -8,6 +8,7 @@
 		"test": "turbo run test",
 		"release": "pnpm build && changeset publish",
 		"format": "biome format ./packages --write",
+		"lint": "biome lint ./packages",
 		"generate:readme": "jiti ./scripts/generateReadme.ts"
 	},
 	"keywords": [],
