@@ -1,4 +1,4 @@
-import { PathLike, createWriteStream } from "fs";
+import { type PathLike, createWriteStream } from "fs";
 import { mkdir } from "fs/promises";
 import { Readable } from "stream";
 import type { ReadableStream } from "stream/web";
@@ -23,7 +23,7 @@ export type Tarball = {
 export const fetchTarball = async (
 	owner: string,
 	repo: string,
-	ref?: string
+	ref?: string,
 ): Promise<Tarball> => {
 	ref = ref ?? "HEAD";
 	const res = await fetch(`https://github.com/${owner}/${repo}/tarball/${ref}`);
@@ -42,7 +42,7 @@ export type CommitData = {
 };
 export const fetchLatestCommit = async (owner: string, repo: string) => {
 	const res = await fetch(
-		`https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`
+		`https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`,
 	);
 	const json = (await res.json()) as CommitData[];
 	return json[0].sha;
