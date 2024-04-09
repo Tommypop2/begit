@@ -79,21 +79,22 @@ export const downloadAndExtract = async ({
 	const caching = opts.cache;
 	cwd = cwd ?? process.cwd();
 	dest = dest ?? repo.name;
-	let tarPath = await downloadToFile(repo);
-	try {
-		await extractFile(tarPath, join(cwd, dest), repo.subdir);
-	} catch (e: any) {
-		const t = e.tarCode;
-		if (t === "TAR_ABORT") {
-			// Unable to extract tarfile, assume cache is corrupted and refetch
-			await unlink(tarPath);
-			tarPath = await downloadToFile(repo);
-			await extractFile(tarPath, join(cwd, dest), repo.subdir);
-		}
-	}
+	const tarPath = await downloadToFile(repo);
+	await extractFile(tarPath, join(cwd, dest), repo.subdir);
 
 	// Remove tarball download if not caching
 	if (!caching) {
 		await unlink(tarPath);
+	}
+};
+export const downloadRepo = async (opts: DownloadAndExtract) => {
+	try {
+		await downloadAndExtract(opts);
+	} catch (e: any) {
+		if (e.tarCode !== "TAR_ABORT") throw e;
+		// Assume tarball is corrupted and attempt to refetch
+		const tarPath = e.file as string;
+		await unlink(tarPath);
+		await downloadAndExtract(opts);
 	}
 };
