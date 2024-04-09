@@ -1,8 +1,8 @@
 {
 	"name": "@begit/cli",
-	"version": "0.0.10",
+	"version": "0.0.11",
 	"description": "A CLI for using begit",
-	"author": "",
+	"author": "Thomas Beer",
 	"license": "MIT",
 	"homepage": "https://github.com/Tommypop2/begit",
 	"repository": {
