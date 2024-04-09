@@ -24,10 +24,10 @@
 	},
 	"keywords": [],
 	"devDependencies": {
-		"@types/node": "^20.12.2",
-		"@types/tar": "^6.1.11",
+		"@types/node": "^20.12.6",
+		"@types/tar": "^6.1.12",
 		"tsup": "^8.0.2",
-		"typescript": "^5.4.3",
+		"typescript": "^5.4.4",
 		"vitest": "^1.4.0"
 	},
 	"dependencies": {

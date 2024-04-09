@@ -14,10 +14,10 @@
 	"keywords": [],
 	"workspaces": ["./packages/*"],
 	"devDependencies": {
-		"@biomejs/biome": "^1.6.3",
+		"@biomejs/biome": "^1.6.4",
 		"@changesets/cli": "^2.27.1",
-		"@types/node": "^20.12.2",
+		"@types/node": "^20.12.6",
 		"jiti": "^1.21.0",
-		"turbo": "^1.13.0"
+		"turbo": "^1.13.2"
 	}
 }
