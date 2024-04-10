@@ -45,20 +45,14 @@ export const extractFile = async (
 	const dir = subdirs.find((d) => (subdir ? d.includes(subdir) : false));
 	if (subdir && !dir) throw new Error("Subdirectory not found");
 	const strip = dir ? dir.split("/").length - 1 : 1;
-	await new Promise<void>((res, rej) =>
-		extract(
-			{
-				file: tarPath.toString(),
-				strip,
-				C: dest,
-				k: !overwrite,
-			},
-			dir ? [dir] : undefined,
-			(err) => {
-				if (err) rej(err);
-				res();
-			},
-		),
+	await extract(
+		{
+			file: tarPath.toString(),
+			strip,
+			C: dest,
+			k: !overwrite,
+		},
+		dir ? [dir] : undefined,
 	);
 };
 export type Options = {
