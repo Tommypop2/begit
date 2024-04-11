@@ -24,7 +24,7 @@ ARGUMENTS:
   [Destination] - a string [optional]
 
 OPTIONS:
-  --subdir, -s <str> - a string
+  --subdir, -s <str> - a string [optional]
 
 FLAGS:
   --help, -h - show help
