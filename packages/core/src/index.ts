@@ -22,6 +22,10 @@ export const downloadToFile = async (repo: Repository): Promise<string> => {
 	await toFile(location, tarball);
 	return location;
 };
+/**
+ * @param {string} tarballFilename
+ * @returns A list of all the files in the tarball
+ */
 const getEntryFilenames = async (tarballFilename: string) => {
 	const filenames: string[] = [];
 	await list({
@@ -30,7 +34,13 @@ const getEntryFilenames = async (tarballFilename: string) => {
 	});
 	return filenames;
 };
-
+/**
+ * Extracts a tarball to a given path
+ * @param tarPath Path to the tarfile to be extracted
+ * @param dest Destination folder, into which the contents of the tarball will be extracted
+ * @param subdir Folder within the tarball to extract
+ * @param overwrite Whether or not to overwrite existing files in the target directory
+ */
 export const extractFile = async (
 	tarPath: string,
 	dest: string,
@@ -65,6 +75,9 @@ export type DownloadAndExtract = {
 	cwd?: string;
 	opts?: Options;
 };
+/**
+ * Downloads given repository to a folder.
+ */
 export const downloadAndExtract = async ({
 	repo,
 	dest,
@@ -82,6 +95,9 @@ export const downloadAndExtract = async ({
 		await unlink(tarPath);
 	}
 };
+/**
+ * Wrapper around `downloadAndExtract`, which automatically attempts to re-download the tarball if extraction fails
+ */
 export const downloadRepo = async (opts: DownloadAndExtract) => {
 	try {
 		await downloadAndExtract(opts);
