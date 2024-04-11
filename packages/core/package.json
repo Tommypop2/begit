@@ -22,7 +22,7 @@
 		"test": "vitest",
 		"build": "tsc && tsup"
 	},
-	"keywords": [],
+	"keywords": ["git", "template", "scaffolding"],
 	"devDependencies": {
 		"@types/node": "^20.12.7",
 		"@types/tar": "^6.1.12",

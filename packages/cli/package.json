@@ -18,7 +18,7 @@
 		"build": "tsc && tsup",
 		"start": "jiti src/index.ts"
 	},
-	"keywords": [],
+	"keywords": ["git", "template", "scaffolding", "cli"],
 	"devDependencies": {
 		"@types/node": "^20.12.7",
 		"changesets": "^1.0.2",
