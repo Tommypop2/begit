@@ -1,7 +1,8 @@
 import { join } from "path";
 import { cachedir, fetchLatestCommit, fetchTarball, toFile } from "./utils";
 import { existsSync } from "fs";
-import { extract, list } from "tar";
+import { extract } from "tar/extract";
+import { list } from "tar/list";
 import { mkdir, unlink } from "fs/promises";
 export type Repository = {
 	owner: string;
