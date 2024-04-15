@@ -61,8 +61,8 @@ importers:
   packages/core:
     dependencies:
       tar:
-        specifier: ^7.0.0
-        version: 7.0.0
+        specifier: ^7.0.1
+        version: 7.0.1
     devDependencies:
       '@types/node':
         specifier: ^20.12.7
@@ -2954,8 +2954,8 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /tar@7.0.0:
-    resolution: {integrity: sha512-spRiR+tDOVD01YeeWBUbNa6HoQErjztT2BXxZWmxJDgaCVgZMO1RAoeKpybiUbr8FxKsUm/svtiEyIRZeWYhAw==}
+  /tar@7.0.1:
+    resolution: {integrity: sha512-IjMhdQMZFpKsHEQT3woZVxBtCQY+0wk3CVxdRkGXEgyGa0dNS/ehPvOMr2nmfC7x5Zj2N+l6yZUpmICjLGS35w==}
     engines: {node: '>=18'}
     dependencies:
       '@isaacs/fs-minipass': 4.0.0

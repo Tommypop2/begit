@@ -31,7 +31,7 @@
 		"vitest": "^1.5.0"
 	},
 	"dependencies": {
-		"tar": "^7.0.0"
+		"tar": "^7.0.1"
 	},
 	"publishConfig": {
 		"access": "public"
