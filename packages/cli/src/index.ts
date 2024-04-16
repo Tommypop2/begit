@@ -1,5 +1,13 @@
 #! /usr/bin/env node
-import { run, command, positional, string, optional, option } from "cmd-ts";
+import {
+	run,
+	command,
+	positional,
+	string,
+	optional,
+	option,
+	flag,
+} from "cmd-ts";
 import updater from "tiny-updater";
 import { name, version } from "../package.json";
 import { downloadRepo } from "@begit/core";
@@ -13,14 +21,23 @@ const main = async () => {
 				displayName: "URL",
 				description: "The URL to clone",
 			}),
-			dest: positional({ type: optional(string), displayName: "Destination" }),
+			dest: positional({
+				type: optional(string),
+				displayName: "Destination",
+				description: "Folder to clone into",
+			}),
 			subdir: option({
 				type: optional(string),
 				long: "subdir",
 				short: "s",
+				description: "Subdirectory of repository to clone"
+			}),
+			no_cache: flag({
+				long: "no-cache",
+				description: "Disables caching the downloaded tarball for the future",
 			}),
 		},
-		async handler({ url, dest, subdir }) {
+		async handler({ url, dest, subdir, no_cache }) {
 			const parts = url.split("/");
 			const repo = parts.pop();
 			const owner = parts.pop();
@@ -29,6 +46,7 @@ const main = async () => {
 			await downloadRepo({
 				repo: { owner, name: repo, branch, subdir },
 				dest,
+				opts: { cache: !no_cache },
 			});
 		},
 	});
