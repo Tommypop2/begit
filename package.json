@@ -14,9 +14,9 @@
 	"keywords": [],
 	"workspaces": ["./packages/*"],
 	"devDependencies": {
-		"@biomejs/biome": "^1.7.2",
+		"@biomejs/biome": "^1.7.3",
 		"@changesets/cli": "^2.27.1",
-		"@types/node": "^20.12.7",
+		"@types/node": "^20.12.11",
 		"jiti": "^1.21.0",
 		"turbo": "^1.13.3"
 	}
