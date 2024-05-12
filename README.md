@@ -12,6 +12,8 @@ A smaller and lighter degit alternative with typescript support.
   - Can recover from a corrupted cache file
 - XDG Friendly
   - Respects XDG directories
+- Minimal Dependencies
+  - Only has a single dependency (tar) for extracting the downloaded tarballs
 
 ## Begit CLI
 
