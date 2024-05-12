@@ -11,9 +11,9 @@ A smaller and lighter degit alternative with typescript support.
 - Fault-tolerant
   - Can recover from a corrupted cache file
 - XDG Friendly
-  - Respects XDG directories
+  - Respects [XDG directories](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 - Minimal Dependencies
-  - Only has a single dependency (tar) for extracting the downloaded tarballs
+  - Only has a single dependency ([tar](https://www.npmjs.com/package/tar)) for extracting the downloaded tarballs
 
 ## Begit CLI
 
