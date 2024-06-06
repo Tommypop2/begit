@@ -1,6 +1,6 @@
 {
 	"name": "@begit/core",
-	"version": "0.0.16",
+	"version": "0.0.17",
 	"description": "Blazingly fast tool for cloning git repositories, with no reliance on local `git`, or `tar` installs",
 	"author": "Thomas Beer",
 	"license": "MIT",
