@@ -58,6 +58,7 @@ export const extractFile = async (
 	const strip = dir ? dir.split("/").length - 1 : 1;
 	await extract(
 		{
+			// @ts-expect-error
 			file: tarPath.toString(),
 			strip,
 			C: dest,

@@ -1,6 +1,6 @@
 {
 	"name": "@begit/cli",
-	"version": "0.0.13",
+	"version": "0.0.14",
 	"description": "A CLI for using begit",
 	"author": "Thomas Beer",
 	"license": "MIT",
@@ -20,10 +20,10 @@
 	},
 	"keywords": ["git", "template", "scaffolding", "cli"],
 	"devDependencies": {
-		"@types/node": "^20.12.12",
+		"@types/node": "^20.14.2",
 		"changesets": "^1.0.2",
-		"jiti": "^1.21.0",
-		"tsup": "^8.0.2",
+		"jiti": "^1.21.3",
+		"tsup": "^8.1.0",
 		"typescript": "^5.4.5",
 		"vitest": "^1.6.0"
 	},

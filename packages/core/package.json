@@ -24,14 +24,14 @@
 	},
 	"keywords": ["git", "template", "scaffolding"],
 	"devDependencies": {
-		"@types/node": "^20.12.12",
+		"@types/node": "^20.14.2",
 		"@types/tar": "^6.1.13",
-		"tsup": "^8.0.2",
+		"tsup": "^8.1.0",
 		"typescript": "^5.4.5",
 		"vitest": "^1.6.0"
 	},
 	"dependencies": {
-		"tar": "^7.1.0"
+		"tar": "^7.2.0"
 	},
 	"publishConfig": {
 		"access": "public"
