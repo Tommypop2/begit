@@ -48,7 +48,6 @@ const main = async () => {
 				dest,
 				opts: { cache: !no_cache },
 			});
-			throw new Error("Sourcemap testing!!")
 		},
 	});
 	const args = process.argv.slice(2);
