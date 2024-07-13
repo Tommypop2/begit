@@ -4,12 +4,12 @@ export default defineConfig({
 	entry: ["src/index.ts"],
 	target: "esnext",
 	format: "esm",
-	splitting: false,
-	sourcemap: false,
-	minify: true,
-	bundle: true,
+	// splitting: false,
+	sourcemap: true,
+	// minify: false,
+	// bundle: true,
 	clean: true,
-	noExternal: [/.*/],
+	// noExternal: [/.*/],
 	treeshake: true,
 	banner: {
 		js: `import { createRequire } from "module";

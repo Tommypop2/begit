@@ -6,5 +6,6 @@ export default defineConfig({
 	format: "esm",
 	splitting: false,
 	sourcemap: true,
-	minify: true,
+	treeshake: true,
+	minify: false,
 });

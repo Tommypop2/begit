@@ -31,11 +31,11 @@
 		"scaffolding"
 	],
 	"devDependencies": {
-		"@types/node": "^20.14.9",
+		"@types/node": "^20.14.10",
 		"@types/tar": "^6.1.13",
 		"tsup": "^8.1.0",
-		"typescript": "^5.5.2",
-		"vitest": "^1.6.0"
+		"typescript": "^5.5.3",
+		"vitest": "^2.0.2"
 	},
 	"dependencies": {
 		"tar": "^7.4.0"
