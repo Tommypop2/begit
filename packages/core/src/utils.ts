@@ -41,8 +41,11 @@ export type CommitData = {
 	sha: string;
 };
 export const fetchLatestCommit = async (owner: string, repo: string) => {
+	const auth = process.env["BEGIT_GH_API_KEY"]
 	const res = await fetch(
-		`https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`,
+		`https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`, auth ? {
+			headers: { "Authorization": `Bearer ${auth}` }
+		} : undefined
 	);
 	const json = (await res.json()) as CommitData[];
 	return json[0].sha;

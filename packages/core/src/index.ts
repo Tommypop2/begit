@@ -67,14 +67,14 @@ export const extractFile = async (
 		dir ? [dir] : undefined,
 	);
 };
-export type Options = {
+export type DownloadAndExtractOptions = {
 	cache: boolean;
 };
 export type DownloadAndExtract = {
 	repo: Installable;
 	dest?: string;
 	cwd?: string;
-	opts?: Options;
+	opts?: DownloadAndExtractOptions;
 };
 /**
  * Downloads given repository to a folder.

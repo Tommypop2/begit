@@ -28,12 +28,12 @@
 		"cli"
 	],
 	"devDependencies": {
-		"@types/node": "^20.14.10",
+		"@types/node": "^20.14.11",
 		"changesets": "^1.0.2",
 		"jiti": "^1.21.6",
-		"tsup": "^8.1.0",
+		"tsup": "^8.1.2",
 		"typescript": "^5.5.3",
-		"vitest": "^2.0.2"
+		"vitest": "^2.0.3"
 	},
 	"dependencies": {
 		"@clack/prompts": "^0.7.0",
