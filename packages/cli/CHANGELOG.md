@@ -1,5 +1,12 @@
 # @begit/cli
 
+## 0.0.17
+
+### Patch Changes
+
+- Updated dependencies
+  - @begit/core@0.0.19
+
 ## 0.0.15
 
 ### Patch Changes
