@@ -10,10 +10,7 @@
 		"url": "https://github.com/Tommypop2/begit"
 	},
 	"type": "module",
-	"files": [
-		"dist",
-		"types"
-	],
+	"files": ["dist", "types"],
 	"bin": {
 		"begit": "./dist/index.js"
 	},
@@ -21,12 +18,7 @@
 		"build": "tsc && tsup",
 		"start": "jiti src/index.ts"
 	},
-	"keywords": [
-		"git",
-		"template",
-		"scaffolding",
-		"cli"
-	],
+	"keywords": ["git", "template", "scaffolding", "cli"],
 	"devDependencies": {
 		"@types/node": "^20.14.12",
 		"changesets": "^1.0.2",

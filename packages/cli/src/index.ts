@@ -30,7 +30,7 @@ const main = async () => {
 				type: optional(string),
 				long: "subdir",
 				short: "s",
-				description: "Subdirectory of repository to clone"
+				description: "Subdirectory of repository to clone",
 			}),
 			no_cache: flag({
 				long: "no-cache",
