@@ -24,11 +24,11 @@
 	},
 	"keywords": ["git", "template", "scaffolding"],
 	"devDependencies": {
-		"@types/node": "^20.14.12",
+		"@types/node": "^22.1.0",
 		"@types/tar": "^6.1.13",
-		"tsup": "^8.2.3",
+		"tsup": "^8.2.4",
 		"typescript": "^5.5.4",
-		"vitest": "^2.0.4"
+		"vitest": "^2.0.5"
 	},
 	"dependencies": {
 		"tar": "^7.4.3"
