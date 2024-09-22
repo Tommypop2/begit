@@ -20,12 +20,12 @@
 	},
 	"keywords": ["git", "template", "scaffolding", "cli"],
 	"devDependencies": {
-		"@types/node": "^22.5.0",
+		"@types/node": "^22.5.5",
 		"changesets": "^1.0.2",
 		"jiti": "^1.21.6",
-		"tsup": "^8.2.4",
-		"typescript": "^5.5.4",
-		"vitest": "^2.0.5"
+		"tsup": "^8.3.0",
+		"typescript": "^5.6.2",
+		"vitest": "^2.1.1"
 	},
 	"dependencies": {
 		"@clack/prompts": "^0.7.0",
