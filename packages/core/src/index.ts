@@ -17,7 +17,7 @@ export const downloadToFile = async (repo: Repository): Promise<string> => {
 	const { owner, name, branch } = repo;
 	// TODO: Fall back to most recently downloaded hash if this fails
 	const hash = await fetchLatestCommit(owner, name);
-	const location = join(cachedir(), `${owner}-${name}-${hash}.tar.gz`);
+	const location = join(cachedir(), `${owner}-${name}-${hash}-${Date.now()}.tar.gz`);
 	if (existsSync(location)) return location;
 	const tarball = await fetchTarball(owner, name, branch);
 	await toFile(location, tarball);
