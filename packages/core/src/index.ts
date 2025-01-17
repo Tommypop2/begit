@@ -8,6 +8,7 @@ export type Repository = {
 	owner: string;
 	name: string;
 	branch?: string;
+	hash?: string;
 };
 export type Installable = Repository & {
 	subdir?: string;
@@ -16,7 +17,10 @@ export type Installable = Repository & {
 export const downloadToFile = async (repo: Repository): Promise<string> => {
 	const { owner, name, branch } = repo;
 	// TODO: Fall back to most recently downloaded hash if this fails
-	const hash = await fetchLatestCommit(owner, name);
+	let hash = repo.hash;
+	if (!hash) {
+		hash = await fetchLatestCommit(owner, name);
+	}
 	const location = join(cachedir(), `${owner}-${name}-${hash}-${Date.now()}.tar.gz`);
 	if (existsSync(location)) return location;
 	const tarball = await fetchTarball(owner, name, branch);
