@@ -11,6 +11,7 @@ import {
 import updater from "tiny-updater";
 import { name, version } from "../package.json";
 import { downloadRepo } from "@begit/core";
+import { fetchLatestCommit, getMostRecentCachedCommit } from "@begit/core/utils";
 const main = async () => {
 	updater({ name, version, ttl: 86_400_000 });
 	const cli = command({
@@ -39,12 +40,28 @@ const main = async () => {
 		},
 		async handler({ url, dest, subdir, no_cache }) {
 			const parts = url.split("/");
-			const repo = parts.pop();
+			const repoName = parts.pop();
 			const owner = parts.pop();
 			const branch = url.split("#")[1] as string | undefined;
-			if (!repo || !owner) throw new Error("Invalid URL");
+			if (!repoName || !owner) throw new Error("Invalid URL");
+			let hash: string | undefined;
+			try {
+				hash = await fetchLatestCommit(owner, repoName);
+			}
+			catch (_) {
+				// Unable to fetch commit hash so use most recently cached value
+				const cached = await getMostRecentCachedCommit(owner, repoName);
+				if (!cached) {
+					throw new Error("Unable to fetch repository or retrieve from cache")
+				}
+				const x = new Date(cached.timestamp);
+				console.log("Can't fetch repository from the internet")
+				console.log(`Using cached repository from ${x.toUTCString()}`);
+				hash = cached.hash;
+			}
+			if (!hash) throw new Error("Unable to retrieve a valid commit hash")
 			await downloadRepo({
-				repo: { owner, name: repo, branch, subdir },
+				repo: { owner, name: repoName, branch, subdir, hash },
 				dest,
 				opts: { cache: !no_cache },
 			});

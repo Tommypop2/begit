@@ -1,5 +1,5 @@
 import { type PathLike, createWriteStream } from "fs";
-import { mkdir } from "fs/promises";
+import { mkdir, readdir } from "fs/promises";
 import { Readable } from "stream";
 import type { ReadableStream } from "stream/web";
 import { finished } from "stream/promises";
@@ -37,6 +37,7 @@ export const toFile = async (path: PathLike, tarball: Tarball) => {
 	const stream = createWriteStream(path);
 	await finished(Readable.fromWeb(tarball.body).pipe(stream));
 };
+export const cacheFileName = (owner: string, name: string, hash: string, timestamp: number) => `${owner}-${name}-${hash}-${timestamp}.tar.gz`
 export type CommitData = {
 	sha: string;
 };
@@ -46,10 +47,31 @@ export const fetchLatestCommit = async (owner: string, repo: string) => {
 		`https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`,
 		auth
 			? {
-					headers: { Authorization: `Bearer ${auth}` },
-				}
+				headers: { Authorization: `Bearer ${auth}` },
+			}
 			: undefined,
 	);
 	const json = (await res.json()) as CommitData[];
 	return json[0].sha;
 };
+export const getFileWithHash = async (repoOwner: string, repoName: string, hash: string) => {
+	const dir = cachedir();
+	const files = await readdir(dir);
+	const fileName = files.filter(name => name.startsWith(`${repoOwner}-${repoName}-${hash}`))[0];
+	return fileName;
+}
+export const getMostRecentCachedCommit = async (repoOwner: string, repoName: string): Promise<{hash: string, timestamp: number} | undefined> => {
+	const dir = cachedir();
+	const files = (await readdir(dir)).map(x => x.replace(".tar.gz", ""));
+	let file_with_max_stamp: { hash: string, timestamp: number } | undefined;
+	for (const file of files) {
+		const split = file.split("-");
+		const [owner, name, hash] = split;
+		const timestamp = parseInt(split[3]);
+		if (owner == repoOwner && name == repoName) {
+			// Right repository, so check if timestamp is more recent
+			if (!file_with_max_stamp || timestamp > file_with_max_stamp.timestamp) file_with_max_stamp = { hash: hash, timestamp };
+		}
+	}
+	return file_with_max_stamp;
+}

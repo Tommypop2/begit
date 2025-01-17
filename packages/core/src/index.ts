@@ -1,6 +1,5 @@
 import { join } from "path";
-import { cachedir, fetchLatestCommit, fetchTarball, toFile } from "./utils";
-import { existsSync } from "fs";
+import { cachedir, cacheFileName, fetchLatestCommit, fetchTarball, getFileWithHash, toFile } from "./utils";
 import { extract } from "tar/extract";
 import { list } from "tar/list";
 import { mkdir, unlink } from "fs/promises";
@@ -16,13 +15,15 @@ export type Installable = Repository & {
 
 export const downloadToFile = async (repo: Repository): Promise<string> => {
 	const { owner, name, branch } = repo;
-	// TODO: Fall back to most recently downloaded hash if this fails
 	let hash = repo.hash;
 	if (!hash) {
 		hash = await fetchLatestCommit(owner, name);
 	}
-	const location = join(cachedir(), `${owner}-${name}-${hash}-${Date.now()}.tar.gz`);
-	if (existsSync(location)) return location;
+	// Check if we have already cached the desired repo and hash
+	const cached = await getFileWithHash(owner, name, hash)
+	if (cached) return join(cachedir(), cached);
+	// Download tarball and timestamp filename
+	const location = join(cachedir(), cacheFileName(owner, name, hash, Date.now()));
 	const tarball = await fetchTarball(owner, name, branch);
 	await toFile(location, tarball);
 	return location;
