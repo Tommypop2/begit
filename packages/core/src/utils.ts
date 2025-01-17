@@ -56,12 +56,14 @@ export const fetchLatestCommit = async (owner: string, repo: string) => {
 };
 export const getFileWithHash = async (repoOwner: string, repoName: string, hash: string) => {
 	const dir = cachedir();
+	await mkdir(dir, { recursive: true });
 	const files = await readdir(dir);
 	const fileName = files.filter(name => name.startsWith(`${repoOwner}-${repoName}-${hash}`))[0];
 	return fileName;
 }
 export const getMostRecentCachedCommit = async (repoOwner: string, repoName: string): Promise<{hash: string, timestamp: number} | undefined> => {
 	const dir = cachedir();
+	await mkdir(dir, { recursive: true });
 	const files = (await readdir(dir)).map(x => x.replace(".tar.gz", ""));
 	let file_with_max_stamp: { hash: string, timestamp: number } | undefined;
 	for (const file of files) {
