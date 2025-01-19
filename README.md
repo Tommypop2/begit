@@ -1,6 +1,6 @@
 # Begit
 
-A smaller and lighter degit alternative with typescript support.
+A smaller and lighter degit alternative with Typescript support.
 
 ## Features
 
@@ -16,6 +16,7 @@ A smaller and lighter degit alternative with typescript support.
   - Only has a single dependency ([tar](https://www.npmjs.com/package/tar)) for extracting the downloaded tarballs
 
 ## Begit CLI
+
 
 A small CLI wrapper for `@begit/core`
 
@@ -81,7 +82,9 @@ Or, shortened to `-s`
 begit Tommypop2/begit -s packages
 ```
 
+
 ## API Reference
+
 
 ## Cloning to a directory
 
@@ -101,3 +104,4 @@ await downloadRepo({
 The code above downloads this repository into a folder named `cool_project`.
 
 Alternatively, `downloadAndExtract` could be used in place of `downloadRepo` to opt out of automatically attempting to handle errors
+

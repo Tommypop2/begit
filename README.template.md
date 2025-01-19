@@ -1,6 +1,6 @@
 # Begit
 
-A smaller and lighter degit alternative with typescript support.
+A smaller and lighter degit alternative with Typescript support.
 
 ## Features
 
