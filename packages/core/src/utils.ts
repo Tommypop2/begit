@@ -41,6 +41,13 @@ export const cacheFileName = (owner: string, name: string, hash: string, timesta
 export type CommitData = {
 	sha: string;
 };
+/**
+ * Fetched the most recent commit hash of a Github repository
+ * 
+ * @param owner Owner of repository
+ * @param repo Repository name
+ * @returns Most recent commit hash in repository
+ */
 export const fetchLatestCommit = async (owner: string, repo: string) => {
 	const auth = process.env["BEGIT_GH_API_KEY"];
 	const res = await fetch(
@@ -54,6 +61,7 @@ export const fetchLatestCommit = async (owner: string, repo: string) => {
 	const json = (await res.json()) as CommitData[];
 	return json[0].sha;
 };
+
 export const getFileWithHash = async (repoOwner: string, repoName: string, hash: string) => {
 	const dir = cachedir();
 	await mkdir(dir, { recursive: true });
@@ -61,7 +69,15 @@ export const getFileWithHash = async (repoOwner: string, repoName: string, hash:
 	const fileName = files.filter(name => name.startsWith(`${repoOwner}-${repoName}-${hash}`))[0];
 	return fileName;
 }
-export const getMostRecentCachedCommit = async (repoOwner: string, repoName: string): Promise<{hash: string, timestamp: number} | undefined> => {
+/**
+ * Gets the most recent commit hash of the repository from the local cache
+ * 
+ * @param repoOwner Owner of repository
+ * @param repoName Repository name
+ * @returns Most recent commit hash of repository in cache, or `undefined`
+ * if there is no cache entry for this repository
+ */
+export const getMostRecentCachedCommit = async (repoOwner: string, repoName: string): Promise<{ hash: string, timestamp: number } | undefined> => {
 	const dir = cachedir();
 	await mkdir(dir, { recursive: true });
 	const files = (await readdir(dir)).map(x => x.replace(".tar.gz", ""));
