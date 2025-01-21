@@ -110,7 +110,7 @@ Alternatively, `downloadAndExtract` could be used in place of `downloadRepo` to 
 ```ts
 import { downloadRepo } from "@begit/core";
 
-const custom_hash = "9e4e51beb1ac76e6c37be1757f14b904617a2f9b"
+const custom_hash = "9e4e51beb1ac76e6c37be1757f14b904617a2f9b";
 
 await downloadRepo({
  repo: {
@@ -129,7 +129,7 @@ await downloadRepo({
 ```ts
 import { downloadRepo } from "@begit/core";
 
-const most_recent_hash = await getMostRecentCachedCommit(owner, repoName); // string | undefined
+const most_recent_hash = await getMostRecentCachedCommit("Tommypop2", "begit"); // string | undefined
 
 await downloadRepo({
  repo: {
