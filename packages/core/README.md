@@ -5,13 +5,13 @@
 ```ts
 import { downloadRepo } from "@begit/core";
 await downloadRepo({
-	repo: {
-		owner: "Tommypop2",
-		name: "begit",
-		branch: undefined,
-		subdir: undefined,
-	},
-	"cool_project",
+ repo: {
+  owner: "Tommypop2",
+  name: "begit",
+  branch: undefined,
+  subdir: undefined,
+ },
+ "cool_project",
 });
 ```
 
@@ -27,14 +27,14 @@ import { downloadRepo } from "@begit/core";
 const custom_hash = "9e4e51beb1ac76e6c37be1757f14b904617a2f9b"
 
 await downloadRepo({
-	repo: {
-		owner: "Tommypop2",
-		name: "begit",
-		branch: undefined,
-		subdir: undefined,
-		hash: custom_hash,
-	},
-	"cool_project",
+ repo: {
+  owner: "Tommypop2",
+  name: "begit",
+  branch: undefined,
+  subdir: undefined,
+  hash: custom_hash,
+ },
+ "cool_project",
 });
 ```
 
@@ -46,13 +46,13 @@ import { downloadRepo } from "@begit/core";
 const most_recent_hash = await getMostRecentCachedCommit(owner, repoName); // string | undefined
 
 await downloadRepo({
-	repo: {
-		owner: "Tommypop2",
-		name: "begit",
-		branch: undefined,
-		subdir: undefined,
-		hash: most_recent_hash,
-	},
-	"cool_project",
+ repo: {
+  owner: "Tommypop2",
+  name: "begit",
+  branch: undefined,
+  subdir: undefined,
+  hash: most_recent_hash,
+ },
+ "cool_project",
 });
 ```
