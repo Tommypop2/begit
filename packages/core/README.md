@@ -1,4 +1,6 @@
-# Begit
+# Begit Core
+
+![npm package minimized gzipped size](https://img.shields.io/bundlejs/size/%40begit%2Fcore)
 
 ## Cloning to a directory
 

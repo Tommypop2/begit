@@ -1,6 +1,6 @@
 # Begit
 
-![![Build and Test]](https://github.com/Tommypop2/begit/actions/workflows/tests.yml/badge.svg?event=push)
+![npm package minimized gzipped size](https://img.shields.io/bundlejs/size/%40begit%2Fcore)
 
 A smaller and lighter degit alternative with Typescript support.
 
@@ -9,7 +9,7 @@ A smaller and lighter degit alternative with Typescript support.
 - Fast
   - Caches results by default so nothing is refetched unnecessarily
 - Small
-  - Only 13.1kB unpacked on [npm](https://www.npmjs.com/package/@begit/core?activeTab=readme) (actual source code is more like 1.4kB minified)
+  - Only 24.9kB unpacked on [npm](https://www.npmjs.com/package/@begit/core?activeTab=readme) (22.1kB minified, bundled and gzipped with all dependencies)
 - Fault-tolerant
   - Can recover from a corrupted cache file
 - XDG Friendly
@@ -84,6 +84,8 @@ begit Tommypop2/begit -s packages
 ```
 
 ## API Reference
+
+![npm package minimized gzipped size](https://img.shields.io/bundlejs/size/%40begit%2Fcore)
 
 ## Cloning to a directory
 
