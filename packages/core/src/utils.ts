@@ -46,10 +46,11 @@ export type CommitData = {
  * 
  * @param owner Owner of repository
  * @param repo Repository name
+ * @param auth_token Optional parameter to authenticate Github API requests
  * @returns Most recent commit hash in repository
  */
-export const fetchLatestCommit = async (owner: string, repo: string) => {
-	const auth = process.env["BEGIT_GH_API_KEY"];
+export const fetchLatestCommit = async (owner: string, repo: string, auth_token?: string) => {
+	const auth = auth_token ?? process.env["BEGIT_GH_API_KEY"];
 	const res = await fetch(
 		`https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`,
 		auth
