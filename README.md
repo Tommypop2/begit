@@ -1,5 +1,7 @@
 # Begit
 
+![![Build and Test]](https://github.com/Tommypop2/begit/actions/workflows/tests.yml/badge.svg?event=push)
+
 A smaller and lighter degit alternative with Typescript support.
 
 ## Features
@@ -16,7 +18,6 @@ A smaller and lighter degit alternative with Typescript support.
   - Only has a single dependency ([tar](https://www.npmjs.com/package/tar)) for extracting the downloaded tarballs
 
 ## Begit CLI
-
 
 A small CLI wrapper for `@begit/core`
 
@@ -82,9 +83,7 @@ Or, shortened to `-s`
 begit Tommypop2/begit -s packages
 ```
 
-
 ## API Reference
-
 
 ## Cloning to a directory
 
@@ -142,4 +141,3 @@ await downloadRepo({
  "cool_project",
 });
 ```
-
