@@ -1,5 +1,14 @@
 # @begit/cli
 
+## 0.1.3
+
+### Patch Changes
+
+- 40cb00b: Updated dependencies
+- Updated dependencies [40cb00b]
+- Updated dependencies [4f83390]
+  - @begit/core@0.1.3
+
 ## 0.0.17
 
 ### Patch Changes
