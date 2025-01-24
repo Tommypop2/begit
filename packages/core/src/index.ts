@@ -12,8 +12,13 @@ export type Repository = {
 export type Installable = Repository & {
 	subdir?: string;
 };
-
-export const downloadToFile = async (repo: Repository): Promise<string> => {
+/**
+ * Downloads the given repository to a tarball on the user's machine
+ * 
+ * @param repo The repository to download
+ * @param auth_token (optional) Github auth token for fetching 
+ */
+export const downloadToFile = async (repo: Repository, auth_token?: string): Promise<string> => {
 	const { owner, name, branch } = repo;
 	let hash = repo.hash;
 	if (!hash) {
@@ -81,6 +86,7 @@ export type DownloadAndExtract = {
 	dest?: string;
 	cwd?: string;
 	opts?: DownloadAndExtractOptions;
+	auth_token?: string;
 };
 /**
  * Downloads given repository to a folder.
@@ -89,12 +95,13 @@ export const downloadAndExtract = async ({
 	repo,
 	dest,
 	cwd,
+	auth_token,
 	opts = { cache: true },
 }: DownloadAndExtract) => {
 	const caching = opts.cache;
 	cwd = cwd ?? process.cwd();
 	dest = dest ?? repo.name;
-	const tarPath = await downloadToFile(repo);
+	const tarPath = await downloadToFile(repo, auth_token);
 	await extractFile(tarPath, join(cwd, dest), repo.subdir);
 
 	// Remove tarball download if not caching
