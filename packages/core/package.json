@@ -11,6 +11,7 @@
 	},
 	"type": "module",
 	"files": ["dist", "types"],
+	"main": "./dist/index.js",
 	"exports": {
 		".": {
 			"types": "./types/index.d.ts",
