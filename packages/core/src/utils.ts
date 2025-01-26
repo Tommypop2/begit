@@ -37,60 +37,79 @@ export const toFile = async (path: PathLike, tarball: Tarball) => {
 	const stream = createWriteStream(path);
 	await finished(Readable.fromWeb(tarball.body).pipe(stream));
 };
-export const cacheFileName = (owner: string, name: string, hash: string, timestamp: number) => `${owner}-${name}-${hash}-${timestamp}.tar.gz`
+export const cacheFileName = (
+	owner: string,
+	name: string,
+	hash: string,
+	timestamp: number,
+) => `${owner}-${name}-${hash}-${timestamp}.tar.gz`;
 export type CommitData = {
 	sha: string;
 };
 /**
  * Fetched the most recent commit hash of a Github repository
- * 
+ *
  * @param owner Owner of repository
  * @param repo Repository name
  * @param auth_token Optional parameter to authenticate Github API requests
  * @returns Most recent commit hash in repository
  */
-export const fetchLatestCommit = async (owner: string, repo: string, auth_token?: string) => {
+export const fetchLatestCommit = async (
+	owner: string,
+	repo: string,
+	auth_token?: string,
+) => {
 	const auth = auth_token ?? process.env["BEGIT_GH_API_KEY"];
 	const res = await fetch(
 		`https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`,
 		auth
 			? {
-				headers: { Authorization: `Bearer ${auth}` },
-			}
+					headers: { Authorization: `Bearer ${auth}` },
+				}
 			: undefined,
 	);
 	const json = (await res.json()) as CommitData[];
 	return json[0].sha;
 };
 
-export const getFileWithHash = async (repoOwner: string, repoName: string, hash: string) => {
+export const getFileWithHash = async (
+	repoOwner: string,
+	repoName: string,
+	hash: string,
+) => {
 	const dir = cachedir();
 	await mkdir(dir, { recursive: true });
 	const files = await readdir(dir);
-	const fileName = files.filter(name => name.startsWith(`${repoOwner}-${repoName}-${hash}`))[0];
+	const fileName = files.filter((name) =>
+		name.startsWith(`${repoOwner}-${repoName}-${hash}`),
+	)[0];
 	return fileName;
-}
+};
 /**
  * Gets the most recent commit hash of the repository from the local cache
- * 
+ *
  * @param repoOwner Owner of repository
  * @param repoName Repository name
  * @returns Most recent commit hash of repository in cache, or `undefined`
  * if there is no cache entry for this repository
  */
-export const getMostRecentCachedCommit = async (repoOwner: string, repoName: string): Promise<{ hash: string, timestamp: number } | undefined> => {
+export const getMostRecentCachedCommit = async (
+	repoOwner: string,
+	repoName: string,
+): Promise<{ hash: string; timestamp: number } | undefined> => {
 	const dir = cachedir();
 	await mkdir(dir, { recursive: true });
-	const files = (await readdir(dir)).map(x => x.replace(".tar.gz", ""));
-	let file_with_max_stamp: { hash: string, timestamp: number } | undefined;
+	const files = (await readdir(dir)).map((x) => x.replace(".tar.gz", ""));
+	let file_with_max_stamp: { hash: string; timestamp: number } | undefined;
 	for (const file of files) {
 		const split = file.split("-");
 		const [owner, name, hash] = split;
 		const timestamp = parseInt(split[3]);
 		if (owner == repoOwner && name == repoName) {
 			// Right repository, so check if timestamp is more recent
-			if (!file_with_max_stamp || timestamp > file_with_max_stamp.timestamp) file_with_max_stamp = { hash: hash, timestamp };
+			if (!file_with_max_stamp || timestamp > file_with_max_stamp.timestamp)
+				file_with_max_stamp = { hash: hash, timestamp };
 		}
 	}
 	return file_with_max_stamp;
-}
+};

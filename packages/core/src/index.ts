@@ -1,5 +1,12 @@
 import { join } from "path";
-import { cachedir, cacheFileName, fetchLatestCommit, fetchTarball, getFileWithHash, toFile } from "./utils";
+import {
+	cachedir,
+	cacheFileName,
+	fetchLatestCommit,
+	fetchTarball,
+	getFileWithHash,
+	toFile,
+} from "./utils";
 import { extract } from "tar/extract";
 import { list } from "tar/list";
 import { mkdir, unlink } from "fs/promises";
@@ -14,21 +21,27 @@ export type Installable = Repository & {
 };
 /**
  * Downloads the given repository to a tarball on the user's machine
- * 
+ *
  * @param repo The repository to download
- * @param auth_token (optional) Github auth token for fetching 
+ * @param auth_token (optional) Github auth token for fetching
  */
-export const downloadToFile = async (repo: Repository, auth_token?: string): Promise<string> => {
+export const downloadToFile = async (
+	repo: Repository,
+	auth_token?: string,
+): Promise<string> => {
 	const { owner, name, branch } = repo;
 	let hash = repo.hash;
 	if (!hash) {
 		hash = await fetchLatestCommit(owner, name);
 	}
 	// Check if we have already cached the desired repo and hash
-	const cached = await getFileWithHash(owner, name, hash)
+	const cached = await getFileWithHash(owner, name, hash);
 	if (cached) return join(cachedir(), cached);
 	// Download tarball and timestamp filename
-	const location = join(cachedir(), cacheFileName(owner, name, hash, Date.now()));
+	const location = join(
+		cachedir(),
+		cacheFileName(owner, name, hash, Date.now()),
+	);
 	const tarball = await fetchTarball(owner, name, branch);
 	await toFile(location, tarball);
 	return location;
