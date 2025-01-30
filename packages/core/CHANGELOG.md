@@ -1,5 +1,11 @@
 # @begit/core
 
+## 0.1.5
+
+### Patch Changes
+
+- Pass through auth_token to `fetchLatestCommit`
+
 ## 0.1.3
 
 ### Patch Changes
