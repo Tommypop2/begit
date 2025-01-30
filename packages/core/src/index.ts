@@ -32,7 +32,7 @@ export const downloadToFile = async (
 	const { owner, name, branch } = repo;
 	let hash = repo.hash;
 	if (!hash) {
-		hash = await fetchLatestCommit(owner, name);
+		hash = await fetchLatestCommit(owner, name, auth_token);
 	}
 	// Check if we have already cached the desired repo and hash
 	const cached = await getFileWithHash(owner, name, hash);
