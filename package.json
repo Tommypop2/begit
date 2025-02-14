@@ -18,9 +18,9 @@
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"@changesets/cli": "^2.27.12",
-		"@types/node": "^22.13.1",
+		"@types/node": "^22.13.4",
 		"jiti": "^2.4.2",
-		"turbo": "^2.4.0"
+		"turbo": "^2.4.2"
 	},
 	"packageManager": "pnpm@9.6.0+sha256.dae0f7e822c56b20979bb5965e3b73b8bdabb6b8b8ef121da6d857508599ca35"
 }
