@@ -64,8 +64,8 @@ export const fetchLatestCommit = async (
 		`https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`,
 		auth
 			? {
-					headers: { Authorization: `Bearer ${auth}` },
-				}
+				headers: { Authorization: `Bearer ${auth}` },
+			}
 			: undefined,
 	);
 	const json = (await res.json()) as CommitData[];
