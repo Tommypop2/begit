@@ -32,7 +32,7 @@
 	},
 	"keywords": ["git", "template", "scaffolding"],
 	"devDependencies": {
-		"@types/node": "^22.13.9",
+		"@types/node": "^22.13.10",
 		"@types/tar": "^6.1.13",
 		"tsup": "^8.4.0",
 		"typescript": "^5.8.2",
