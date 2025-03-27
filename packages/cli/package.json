@@ -20,7 +20,7 @@
 	},
 	"keywords": ["git", "template", "scaffolding", "cli"],
 	"devDependencies": {
-		"@types/node": "^22.13.13",
+		"@types/node": "^22.13.14",
 		"changesets": "^1.0.2",
 		"jiti": "^2.4.2",
 		"tsup": "^8.4.0",
