@@ -1,7 +1,7 @@
 {
 	"name": "@begit/core",
-	"version": "0.1.5",
-	"description": "Blazingly fast tool for cloning git repositories, with no reliance on local `git`, or `tar` installs",
+	"version": "0.2.0",
+	"description": "Fast tool for cloning git repositories, with no reliance on local `git`, or `tar` installs",
 	"author": "Thomas Beer",
 	"license": "MIT",
 	"homepage": "https://github.com/Tommypop2/begit",
@@ -10,7 +10,10 @@
 		"url": "https://github.com/Tommypop2/begit"
 	},
 	"type": "module",
-	"files": ["dist", "types"],
+	"files": [
+		"dist",
+		"types"
+	],
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
 	"types": "./types/index.d.ts",
@@ -30,7 +33,11 @@
 		"test": "vitest run",
 		"build": "tsc && tsup"
 	},
-	"keywords": ["git", "template", "scaffolding"],
+	"keywords": [
+		"git",
+		"template",
+		"scaffolding"
+	],
 	"devDependencies": {
 		"@types/node": "^22.13.14",
 		"@types/tar": "^6.1.13",

@@ -1,5 +1,16 @@
 # @begit/cli
 
+## 0.2.0
+
+### Minor Changes
+
+- Add support for fetching with GH Auth
+
+### Patch Changes
+
+- Updated dependencies
+  - @begit/core@0.2.0
+
 ## 0.1.4
 
 ### Patch Changes
