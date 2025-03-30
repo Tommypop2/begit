@@ -36,12 +36,18 @@ const main = async () => {
 				short: "s",
 				description: "Subdirectory of repository to clone",
 			}),
+			token: option({
+				type: optional(string),
+				long: "token",
+				short: "t",
+				description: "GitHub API Token"
+			}),
 			no_cache: flag({
 				long: "no-cache",
 				description: "Disables caching the downloaded tarball for the future",
 			}),
 		},
-		async handler({ url, dest, subdir, no_cache }) {
+		async handler({ url, dest, subdir, token, no_cache }) {
 			const parts = url.split("/");
 			const repoName = parts.pop();
 			const owner = parts.pop();
@@ -49,7 +55,7 @@ const main = async () => {
 			if (!repoName || !owner) throw new Error("Invalid URL");
 			let hash: string | undefined;
 			try {
-				hash = await fetchLatestCommit(owner, repoName);
+				hash = await fetchLatestCommit(owner, repoName, token);
 			} catch (_) {
 				// Unable to fetch commit hash so use most recently cached value
 				const cached = await getMostRecentCachedCommit(owner, repoName);
@@ -66,6 +72,7 @@ const main = async () => {
 				repo: { owner, name: repoName, branch, subdir, hash },
 				dest,
 				opts: { cache: !no_cache },
+				auth_token: token,
 			});
 		},
 	});
