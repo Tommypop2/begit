@@ -23,10 +23,18 @@ export type Tarball = {
 export const fetchTarball = async (
 	owner: string,
 	repo: string,
-	ref?: string,
+	{ ref, auth_token }: { ref?: string; auth_token?: string } = {},
 ): Promise<Tarball> => {
 	ref = ref ?? "HEAD";
-	const res = await fetch(`https://github.com/${owner}/${repo}/tarball/${ref}`);
+	const auth = auth_token ?? process.env["BEGIT_GH_API_KEY"];
+	const res = await fetch(
+		`https://api.github.com/repos/${owner}/${repo}/tarball/${ref}`,
+		auth
+			? {
+					headers: { Authorization: `Bearer ${auth}` },
+				}
+			: undefined,
+	);
 	return {
 		body: res.body as ReadableStream<Uint8Array>,
 		name: res.url.split("/").pop()!,

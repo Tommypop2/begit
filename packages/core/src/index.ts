@@ -42,7 +42,7 @@ export const downloadToFile = async (
 		cachedir(),
 		cacheFileName(owner, name, hash, Date.now()),
 	);
-	const tarball = await fetchTarball(owner, name, branch);
+	const tarball = await fetchTarball(owner, name, { ref: branch, auth_token });
 	await toFile(location, tarball);
 	return location;
 };
