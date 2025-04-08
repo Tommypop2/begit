@@ -28,15 +28,15 @@
 		"cli"
 	],
 	"devDependencies": {
-		"@types/node": "^22.13.14",
+		"@types/node": "^22.14.0",
 		"changesets": "^1.0.2",
 		"jiti": "^2.4.2",
 		"tsup": "^8.4.0",
-		"typescript": "^5.8.2",
-		"vitest": "^3.0.9"
+		"typescript": "^5.8.3",
+		"vitest": "^3.1.1"
 	},
 	"dependencies": {
-		"@clack/prompts": "^0.10.0",
+		"@clack/prompts": "^0.10.1",
 		"cmd-ts": "^0.13.0",
 		"tiny-updater": "^3.5.3",
 		"@begit/core": "workspace:*"
