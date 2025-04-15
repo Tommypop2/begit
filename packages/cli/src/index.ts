@@ -55,7 +55,7 @@ const main = async () => {
 			if (!repoName || !owner) throw new Error("Invalid URL");
 			let hash: string | undefined;
 			try {
-				hash = await fetchLatestCommit(owner, repoName, token);
+				hash = await fetchLatestCommit({ owner, name: repoName }, token);
 			} catch (_) {
 				// Unable to fetch commit hash so use most recently cached value
 				const cached = await getMostRecentCachedCommit(owner, repoName);
