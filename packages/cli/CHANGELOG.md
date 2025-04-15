@@ -1,5 +1,13 @@
 # @begit/cli
 
+## 0.2.1
+
+### Patch Changes
+
+- Fixed issue where `fetchLatestCommit` wouldn't necessarily fetch the latest commit for the desired branch - resulting in the cache key having a different commit to the commit actually contained within the cache
+- Updated dependencies
+  - @begit/core@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes
