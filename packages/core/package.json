@@ -39,7 +39,7 @@
 		"scaffolding"
 	],
 	"devDependencies": {
-		"@types/node": "^22.14.0",
+		"@types/node": "^22.14.1",
 		"@types/tar": "^6.1.13",
 		"tsup": "^8.4.0",
 		"typescript": "^5.8.3",
