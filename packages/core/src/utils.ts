@@ -5,6 +5,7 @@ import type { ReadableStream } from "stream/web";
 import { finished } from "stream/promises";
 import { homedir as oshomedir, tmpdir as ostmpdir } from "os";
 import { dirname, join } from "path";
+import { Repository } from ".";
 
 export const homedir = () => {
 	return process.env.XDG_CONFIG_HOME ?? oshomedir();
@@ -21,14 +22,13 @@ export type Tarball = {
 	body: ReadableStream<Uint8Array>;
 };
 export const fetchTarball = async (
-	owner: string,
-	repo: string,
+	repo: Repository,
 	{ ref, auth_token }: { ref?: string; auth_token?: string } = {},
 ): Promise<Tarball> => {
 	ref = ref ?? "HEAD";
 	const auth = auth_token ?? process.env["BEGIT_GH_API_KEY"];
 	const res = await fetch(
-		`https://api.github.com/repos/${owner}/${repo}/tarball/${ref}`,
+		`https://api.github.com/repos/${repo.owner}/${repo.name}/tarball/${ref}`,
 		auth
 			? {
 					headers: { Authorization: `Bearer ${auth}` },
@@ -51,7 +51,7 @@ export const cacheFileName = (
 	hash: string,
 	timestamp: number,
 ) => `${owner}-${name}-${hash}-${timestamp}.tar.gz`;
-export type CommitData = {
+export type GitHubCommitData = {
 	sha: string;
 };
 /**
@@ -63,20 +63,20 @@ export type CommitData = {
  * @returns Most recent commit hash in repository
  */
 export const fetchLatestCommit = async (
-	owner: string,
-	repo: string,
+	repo: Repository,
 	auth_token?: string,
 ) => {
+	const branch = repo.branch;
 	const auth = auth_token ?? process.env["BEGIT_GH_API_KEY"];
 	const res = await fetch(
-		`https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`,
+		`https://api.github.com/repos/${repo.owner}/${repo.name}/commits?per_page=1` + (branch ? `&sha=${branch}` : ""),
 		auth
 			? {
 				headers: { Authorization: `Bearer ${auth}` },
 			}
 			: undefined,
 	);
-	const json = (await res.json()) as CommitData[];
+	const json = (await res.json()) as GitHubCommitData[];
 	return json[0].sha;
 };
 

@@ -29,10 +29,10 @@ export const downloadToFile = async (
 	repo: Repository,
 	auth_token?: string,
 ): Promise<string> => {
-	const { owner, name, branch } = repo;
+	const { owner, name } = repo;
 	let hash = repo.hash;
 	if (!hash) {
-		hash = await fetchLatestCommit(owner, name, auth_token);
+		hash = await fetchLatestCommit(repo, auth_token);
 	}
 	// Check if we have already cached the desired repo and hash
 	const cached = await getFileWithHash(owner, name, hash);
@@ -42,7 +42,7 @@ export const downloadToFile = async (
 		cachedir(),
 		cacheFileName(owner, name, hash, Date.now()),
 	);
-	const tarball = await fetchTarball(owner, name, { ref: branch, auth_token });
+	const tarball = await fetchTarball(repo, { ref: hash, auth_token });
 	await toFile(location, tarball);
 	return location;
 };
