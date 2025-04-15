@@ -14,7 +14,6 @@ describe("utils", () => {
 			owner: "solidjs-community",
 			branch: "0.5.x"
 		});
-		console.log(res)
-		expect(res.length).toBe(40);
+		expect(res).toBe("ffd59e711a0aa7ce8d9aa0f00dac895a535586ac");
 	});
 });
