@@ -1,5 +1,5 @@
 {
-	"name": "@begit/cli",
+	"name": "begit",
 	"version": "0.2.1",
 	"description": "A CLI for using begit",
 	"author": "Thomas Beer",
@@ -17,7 +17,6 @@
 	"bin": {
 		"begit": "./dist/index.js"
 	},
-	"module": "./dist/index.js",
 	"scripts": {
 		"build": "tsc && tsup",
 		"start": "jiti src/index.ts"
@@ -40,7 +39,8 @@
 		"@clack/prompts": "^0.10.1",
 		"cmd-ts": "^0.13.0",
 		"tiny-updater": "^3.5.3",
-		"@begit/core": "workspace:*"
+		"@begit/core": "workspace:*",
+    "@begit/cli": "workspace:*"
 	},
 	"publishConfig": {
 		"access": "public"
