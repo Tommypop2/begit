@@ -49,13 +49,15 @@ const main = async () => {
 		},
 		async handler({ url, dest, subdir, token, no_cache }) {
 			const parts = url.split("/");
-			const repoName = parts.pop();
+			if (parts.length == 0) {
+				throw Error("Invalid URL")
+			}
+			const [repoName, branch] = parts.pop()!.split("#");
 			const owner = parts.pop();
-			const branch = url.split("#")[1] as string | undefined;
 			if (!repoName || !owner) throw new Error("Invalid URL");
 			let hash: string | undefined;
 			try {
-				hash = await GithubFetcher.fetchLatestCommit({ owner, name: repoName }, token);
+				hash = await GithubFetcher.fetchLatestCommit({ owner, name: repoName, branch }, token);
 			} catch (_) {
 				// Unable to fetch commit hash so use most recently cached value
 				const cached = await getMostRecentCachedCommit(owner, repoName);
