@@ -3,7 +3,15 @@ import type { GitHubCommitData, Tarball } from "./utils"
 export type FetcherSource = "github" | "gitlab"
 export type Fetcher = {
 	source: FetcherSource,
-	fetchTarball: (repo: Repository, metadata: { ref?: string; auth_token?: string }) => Promise<Tarball>
+
+	fetchTarball: (repo: Repository, metadata?: { ref?: string; auth_token?: string }) => Promise<Tarball>
+	/**
+	 * Fetches the most recent commit hash of a Github repository
+	 *
+	 * @param repo Repository to fetch latest commit of
+	 * @param auth_token Optional parameter to authenticate Github API requests
+	 * @returns Most recent commit hash in repository
+	 */
 	fetchLatestCommit: (repo: Repository, auth_token?: string) => Promise<string>
 }
 
@@ -43,9 +51,9 @@ export const GithubFetcher: Fetcher = {
 
 export const GitlabFetcher: Fetcher = {
 	source: "gitlab",
-	async fetchTarball(repo, metadata) {
-		const ref = metadata.ref ?? "HEAD";
-		const auth = metadata.auth_token ?? process.env["BEGIT_GL_API_KEY"];
+	async fetchTarball(repo, { ref, auth_token } = {}) {
+		ref = ref ?? "HEAD";
+		const auth = auth_token ?? process.env["BEGIT_GL_API_KEY"];
 		const res = await fetch(
 			`https://gitlab.com/api/v4/projects/${repo.owner}%2F${repo.name}/repository/archive`,
 			auth
@@ -72,4 +80,21 @@ export const GitlabFetcher: Fetcher = {
 		const json = (await res.json()) as { id: string }[];
 		return json[0].id;
 	},
+}
+
+/**
+ * Matches a `FetcherSource` to its corresponding `Fetcher`
+ * 
+ * Warning: Using this will include all available fetchers in your bundle.
+ * Importing and using only the fetchers you need is recommended
+ * @param source Git repository source
+ * @returns A fetcher that can fetch from that source
+ */
+export const matchFetcher = (source: FetcherSource): Fetcher => {
+	switch (source) {
+		case "github":
+			return GithubFetcher
+		case "gitlab":
+			return GitlabFetcher
+	}
 }

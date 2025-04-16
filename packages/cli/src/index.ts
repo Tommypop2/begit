@@ -12,9 +12,9 @@ import updater from "tiny-updater";
 import { name, version } from "../package.json";
 import { downloadRepo } from "@begit/core";
 import {
-	fetchLatestCommit,
 	getMostRecentCachedCommit,
-} from "@begit/core/utils";
+	GithubFetcher
+} from "@begit/core";
 const main = async () => {
 	updater({ name, version, ttl: 86_400_000 });
 	const cli = command({
@@ -55,7 +55,7 @@ const main = async () => {
 			if (!repoName || !owner) throw new Error("Invalid URL");
 			let hash: string | undefined;
 			try {
-				hash = await fetchLatestCommit({ owner, name: repoName }, token);
+				hash = await GithubFetcher.fetchLatestCommit({ owner, name: repoName }, token);
 			} catch (_) {
 				// Unable to fetch commit hash so use most recently cached value
 				const cached = await getMostRecentCachedCommit(owner, repoName);
@@ -68,7 +68,7 @@ const main = async () => {
 				hash = cached.hash;
 			}
 			if (!hash) throw new Error("Unable to retrieve a valid commit hash");
-			await downloadRepo({
+			await downloadRepo(GithubFetcher, {
 				repo: { owner, name: repoName, branch, subdir, hash },
 				dest,
 				opts: { cache: !no_cache },

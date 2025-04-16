@@ -1,15 +1,15 @@
 import { describe, expect, test } from "vitest";
-import { fetchLatestCommit, fetchTarball } from "../src/utils";
-describe("utils", () => {
+import { GithubFetcher } from "../src/fetchers";
+describe("GithubFetcher", () => {
 	test("fetchTarball", async () => {
-		const res = await fetchTarball({
+		const res = await GithubFetcher.fetchTarball({
 			name: "solid-cli",
 			owner: "solidjs-community",
 		});
 		expect(res.name).toBeTypeOf("string");
 	});
 	test("fetchLatestCommit", async () => {
-		const res = await fetchLatestCommit({
+		const res = await GithubFetcher.fetchLatestCommit({
 			name: "solid-cli",
 			owner: "solidjs-community",
 			branch: "0.5.x"

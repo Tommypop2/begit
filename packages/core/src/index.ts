@@ -2,14 +2,15 @@ import { join } from "path";
 import {
 	cachedir,
 	cacheFileName,
-	fetchLatestCommit,
-	fetchTarball,
 	getFileWithHash,
 	toFile,
 } from "./utils";
 import { extract } from "tar/extract";
 import { list } from "tar/list";
 import { mkdir, unlink } from "fs/promises";
+import { Fetcher, GithubFetcher } from "./fetchers";
+export * from "./utils";
+export * from "./fetchers";
 export type Repository = {
 	owner: string;
 	name: string;
@@ -26,13 +27,14 @@ export type Installable = Repository & {
  * @param auth_token (optional) Github auth token for fetching
  */
 export const downloadToFile = async (
+	fetcher: Fetcher,
 	repo: Repository,
 	auth_token?: string,
 ): Promise<string> => {
 	const { owner, name } = repo;
 	let hash = repo.hash;
 	if (!hash) {
-		hash = await fetchLatestCommit(repo, auth_token);
+		hash = await fetcher.fetchLatestCommit(repo, auth_token);
 	}
 	// Check if we have already cached the desired repo and hash
 	const cached = await getFileWithHash(owner, name, hash);
@@ -42,7 +44,7 @@ export const downloadToFile = async (
 		cachedir(),
 		cacheFileName(owner, name, hash, Date.now()),
 	);
-	const tarball = await fetchTarball(repo, { ref: hash, auth_token });
+	const tarball = await fetcher.fetchTarball(repo, { ref: hash, auth_token });
 	await toFile(location, tarball);
 	return location;
 };
@@ -104,7 +106,7 @@ export type DownloadAndExtract = {
 /**
  * Downloads given repository to a folder.
  */
-export const downloadAndExtract = async ({
+export const downloadAndExtract = async (fetcher: Fetcher, {
 	repo,
 	dest,
 	cwd,
@@ -114,7 +116,7 @@ export const downloadAndExtract = async ({
 	const caching = opts.cache;
 	cwd = cwd ?? process.cwd();
 	dest = dest ?? repo.name;
-	const tarPath = await downloadToFile(repo, auth_token);
+	const tarPath = await downloadToFile(GithubFetcher, repo, auth_token);
 	await extractFile(tarPath, join(cwd, dest), repo.subdir);
 
 	// Remove tarball download if not caching
@@ -125,14 +127,14 @@ export const downloadAndExtract = async ({
 /**
  * Wrapper around `downloadAndExtract`, which automatically attempts to re-download the tarball if extraction fails
  */
-export const downloadRepo = async (opts: DownloadAndExtract) => {
+export const downloadRepo = async (fetcher: Fetcher, opts: DownloadAndExtract) => {
 	try {
-		await downloadAndExtract(opts);
+		await downloadAndExtract(fetcher, opts);
 	} catch (e: any) {
 		if (e.tarCode !== "TAR_ABORT") throw e;
 		// Assume tarball is corrupted and attempt to refetch
 		const tarPath = e.file as string;
 		await unlink(tarPath);
-		await downloadAndExtract(opts);
+		await downloadAndExtract(fetcher, opts);
 	}
 };

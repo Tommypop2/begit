@@ -21,25 +21,7 @@ export type Tarball = {
 	name: string;
 	body: ReadableStream<Uint8Array>;
 };
-export const fetchTarball = async (
-	repo: Repository,
-	{ ref, auth_token }: { ref?: string; auth_token?: string } = {},
-): Promise<Tarball> => {
-	ref = ref ?? "HEAD";
-	const auth = auth_token ?? process.env["BEGIT_GH_API_KEY"];
-	const res = await fetch(
-		`https://api.github.com/repos/${repo.owner}/${repo.name}/tarball/${ref}`,
-		auth
-			? {
-					headers: { Authorization: `Bearer ${auth}` },
-				}
-			: undefined,
-	);
-	return {
-		body: res.body as ReadableStream<Uint8Array>,
-		name: res.url.split("/").pop()!,
-	};
-};
+
 export const toFile = async (path: PathLike, tarball: Tarball) => {
 	await mkdir(dirname(path.toString()), { recursive: true });
 	const stream = createWriteStream(path);
@@ -53,31 +35,6 @@ export const cacheFileName = (
 ) => `${owner}-${name}-${hash}-${timestamp}.tar.gz`;
 export type GitHubCommitData = {
 	sha: string;
-};
-/**
- * Fetched the most recent commit hash of a Github repository
- *
- * @param owner Owner of repository
- * @param repo Repository name
- * @param auth_token Optional parameter to authenticate Github API requests
- * @returns Most recent commit hash in repository
- */
-export const fetchLatestCommit = async (
-	repo: Repository,
-	auth_token?: string,
-) => {
-	const branch = repo.branch;
-	const auth = auth_token ?? process.env["BEGIT_GH_API_KEY"];
-	const res = await fetch(
-		`https://api.github.com/repos/${repo.owner}/${repo.name}/commits?per_page=1` + (branch ? `&sha=${branch}` : ""),
-		auth
-			? {
-				headers: { Authorization: `Bearer ${auth}` },
-			}
-			: undefined,
-	);
-	const json = (await res.json()) as GitHubCommitData[];
-	return json[0].sha;
 };
 
 export const getFileWithHash = async (
