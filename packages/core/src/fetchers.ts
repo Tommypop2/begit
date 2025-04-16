@@ -83,18 +83,20 @@ export const GitlabFetcher: Fetcher = {
 }
 
 /**
- * Matches a `FetcherSource` to its corresponding `Fetcher`
+ * Matches a string to its corresponding `Fetcher`
  * 
  * Warning: Using this will include all available fetchers in your bundle.
  * Importing and using only the fetchers you need is recommended
- * @param source Git repository source
+ * @param maybe_source Git repository source
  * @returns A fetcher that can fetch from that source
  */
-export const matchFetcher = (source: FetcherSource): Fetcher => {
-	switch (source) {
+export const matchFetcher = (maybe_source: string): Fetcher | undefined => {
+	switch (maybe_source) {
 		case "github":
 			return GithubFetcher
 		case "gitlab":
 			return GitlabFetcher
+		default:
+			return undefined
 	}
 }
