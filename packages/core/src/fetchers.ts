@@ -55,7 +55,7 @@ export const GitlabFetcher: Fetcher = {
 		ref = ref ?? "HEAD";
 		const auth = auth_token ?? process.env["BEGIT_GL_API_KEY"];
 		const res = await fetch(
-			`https://gitlab.com/api/v4/projects/${repo.owner}%2F${repo.name}/repository/archive`,
+			`https://gitlab.com/api/v4/projects/${repo.owner}%2F${repo.name}/repository/archive?sha=${ref}`,
 			auth
 				? {
 					headers: { Authorization: `Bearer ${auth}` },
@@ -68,9 +68,12 @@ export const GitlabFetcher: Fetcher = {
 		} as Tarball;
 	},
 	async fetchLatestCommit(repo, auth_token) {
+		// HEAD should be the tip of the default branch.
+		// On gitlab, this is better than just doing `/commits`, as passing a REF gives only a single commit which is less data
+		const branch = repo.branch ?? "HEAD";
 		const auth = auth_token ?? process.env["BEGIT_GH_API_KEY"];
 		const res = await fetch(
-			`https://gitlab.com/api/v4/projects/${repo.owner}%2F${repo.name}/repository/commits`,
+			`https://gitlab.com/api/v4/projects/${repo.owner}%2F${repo.name}/repository/commits?ref_name=${branch}`,
 			auth
 				? {
 					headers: { Authorization: `Bearer ${auth}` },
