@@ -20,9 +20,18 @@ importers:
       jiti:
         specifier: ^2.4.2
         version: 2.4.2
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(jiti@2.4.2)(postcss@8.4.32)(typescript@5.8.3)
       turbo:
         specifier: ^2.5.0
         version: 2.5.0
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
+      vitest:
+        specifier: ^3.1.1
+        version: 3.1.1(@types/node@22.14.1)
 
   packages/begit:
     dependencies:
@@ -45,9 +54,6 @@ importers:
       '@types/node':
         specifier: ^22.14.1
         version: 22.14.1
-      changesets:
-        specifier: ^1.0.2
-        version: 1.0.2
       jiti:
         specifier: ^2.4.2
         version: 2.4.2
@@ -79,21 +85,9 @@ importers:
       '@types/node':
         specifier: ^22.14.1
         version: 22.14.1
-      changesets:
-        specifier: ^1.0.2
-        version: 1.0.2
       jiti:
         specifier: ^2.4.2
         version: 2.4.2
-      tsup:
-        specifier: ^8.4.0
-        version: 8.4.0(jiti@2.4.2)(postcss@8.4.32)(typescript@5.8.3)
-      typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
-      vitest:
-        specifier: ^3.1.1
-        version: 3.1.1(@types/node@22.14.1)
 
   packages/core:
     dependencies:
@@ -107,15 +101,6 @@ importers:
       '@types/tar':
         specifier: ^6.1.13
         version: 6.1.13
-      tsup:
-        specifier: ^8.4.0
-        version: 8.4.0(jiti@2.4.2)(postcss@8.4.32)(typescript@5.8.3)
-      typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
-      vitest:
-        specifier: ^3.1.1
-        version: 3.1.1(@types/node@22.14.1)
 
 packages:
 
@@ -774,9 +759,6 @@ packages:
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
-
-  changesets@1.0.2:
-    resolution: {integrity: sha512-lnXvvqJEcK0z/6RtwKNLbejazl+Hxd1bocMcNgfLHWb4rGxuqkO/LdeGNzwIx3jHj+fNWZ6AGgK5AqNBwva4Xg==}
 
   chardet@0.7.0:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
@@ -2103,8 +2085,6 @@ snapshots:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
-
-  changesets@1.0.2: {}
 
   chardet@0.7.0: {}
 
