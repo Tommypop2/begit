@@ -16,6 +16,8 @@ A smaller and lighter degit alternative with Typescript support.
   - Respects [XDG directories](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 - Minimal Dependencies
   - Only has a single dependency ([tar](https://www.npmjs.com/package/tar)) for extracting the downloaded tarballs
+- Flexible Fetching
+  - Can fetch from different git providers. You can even provide your own fetcher!
 
 ## Begit CLI
 
@@ -40,12 +42,14 @@ begit
 
 ARGUMENTS:
   <URL>         - The URL to clone
-  [Destination] - a string [optional]
+  [Destination] - Folder to clone into [optional]
 
 OPTIONS:
-  --subdir, -s <str> - a string [optional]
+  --subdir, -s <str> - Subdirectory of repository to clone [optional]
+  --token, -t <str>  - GitHub API Token [optional]
 
 FLAGS:
+  --no-cache - Disables caching the downloaded tarball for the future
   --help, -h - show help
 ```
 
