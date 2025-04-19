@@ -50,22 +50,6 @@ importers:
       tiny-updater:
         specifier: ^3.5.3
         version: 3.5.3
-    devDependencies:
-      '@types/node':
-        specifier: ^22.14.1
-        version: 22.14.1
-      jiti:
-        specifier: ^2.4.2
-        version: 2.4.2
-      tsup:
-        specifier: ^8.4.0
-        version: 8.4.0(jiti@2.4.2)(postcss@8.4.32)(typescript@5.8.3)
-      typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
-      vitest:
-        specifier: ^3.1.1
-        version: 3.1.1(@types/node@22.14.1)
 
   packages/cli:
     dependencies:
@@ -81,13 +65,6 @@ importers:
       tiny-updater:
         specifier: ^3.5.3
         version: 3.5.3
-    devDependencies:
-      '@types/node':
-        specifier: ^22.14.1
-        version: 22.14.1
-      jiti:
-        specifier: ^2.4.2
-        version: 2.4.2
 
   packages/core:
     dependencies:
@@ -95,9 +72,6 @@ importers:
         specifier: ^7.4.3
         version: 7.4.3
     devDependencies:
-      '@types/node':
-        specifier: ^22.14.1
-        version: 22.14.1
       '@types/tar':
         specifier: ^6.1.13
         version: 6.1.13
