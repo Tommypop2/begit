@@ -5,7 +5,6 @@ import type { ReadableStream } from "stream/web";
 import { finished } from "stream/promises";
 import { homedir as oshomedir, tmpdir as ostmpdir } from "os";
 import { dirname, join } from "path";
-import { Repository } from ".";
 
 export const homedir = () => {
 	return process.env.XDG_CONFIG_HOME ?? oshomedir();
