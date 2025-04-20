@@ -152,7 +152,7 @@ await downloadRepo({
 
 ```ts
 import { downloadRepo, matchFetcher } from "@begit/core";
-const fetcher = matchFetcher("github")
+const fetcher = matchFetcher("github");
 
 await downloadRepo({
  repo: {
