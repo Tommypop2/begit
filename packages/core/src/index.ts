@@ -106,13 +106,13 @@ export type DownloadAndExtract = {
 /**
  * Downloads given repository to a folder.
  */
-export const downloadAndExtract = async (fetcher: Fetcher, {
+export const downloadAndExtract = async ({
 	repo,
 	dest,
 	cwd,
 	auth_token,
 	opts = { cache: true },
-}: DownloadAndExtract) => {
+}: DownloadAndExtract, fetcher: Fetcher) => {
 	const caching = opts.cache;
 	cwd = cwd ?? process.cwd();
 	dest = dest ?? repo.name;
@@ -127,14 +127,14 @@ export const downloadAndExtract = async (fetcher: Fetcher, {
 /**
  * Wrapper around `downloadAndExtract`, which automatically attempts to re-download the tarball if extraction fails
  */
-export const downloadRepo = async (fetcher: Fetcher, opts: DownloadAndExtract) => {
+export const downloadRepo = async (opts: DownloadAndExtract, fetcher: Fetcher = GithubFetcher) => {
 	try {
-		await downloadAndExtract(fetcher, opts);
+		await downloadAndExtract(opts, fetcher);
 	} catch (e: any) {
 		if (e.tarCode !== "TAR_ABORT") throw e;
 		// Assume tarball is corrupted and attempt to refetch
 		const tarPath = e.file as string;
 		await unlink(tarPath);
-		await downloadAndExtract(fetcher, opts);
+		await downloadAndExtract(opts, fetcher);
 	}
 };
