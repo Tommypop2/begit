@@ -116,7 +116,7 @@ export const downloadAndExtract = async (fetcher: Fetcher, {
 	const caching = opts.cache;
 	cwd = cwd ?? process.cwd();
 	dest = dest ?? repo.name;
-	const tarPath = await downloadToFile(GithubFetcher, repo, auth_token);
+	const tarPath = await downloadToFile(fetcher, repo, auth_token);
 	await extractFile(tarPath, join(cwd, dest), repo.subdir);
 
 	// Remove tarball download if not caching
