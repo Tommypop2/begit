@@ -147,3 +147,21 @@ await downloadRepo({
  "cool_project",
 });
 ```
+
+## Using a fetcher
+
+```ts
+import { downloadRepo, matchFetcher } from "@begit/core";
+const fetcher = matchFetcher("github")
+
+await downloadRepo({
+ repo: {
+  owner: "Tommypop2",
+  name: "begit",
+  branch: undefined,
+  subdir: undefined,
+  hash: most_recent_hash,
+ },
+ "cool_project",
+}, fetcher);
+```
