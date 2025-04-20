@@ -74,12 +74,12 @@ const main = async () => {
 				hash = cached.hash;
 			}
 			if (!hash) throw new Error("Unable to retrieve a valid commit hash");
-			await downloadRepo(fetcher, {
+			await downloadRepo({
 				repo: { owner, name: repoName, branch, subdir, hash },
 				dest,
 				opts: { cache: !no_cache },
 				auth_token: token,
-			});
+			}, fetcher);
 		},
 	});
 	const args = process.argv.slice(2);
