@@ -1,5 +1,14 @@
 # begit
 
+## 0.3.1
+
+### Patch Changes
+
+- Re-order arguments to `downloadRepo` and `downloadAndExtract`. Github fetcher is used by default
+- Updated dependencies
+  - @begit/cli@0.3.1
+  - @begit/core@0.3.1
+
 ## 0.3.0
 
 ### Minor Changes
