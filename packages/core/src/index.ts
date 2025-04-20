@@ -112,7 +112,7 @@ export const downloadAndExtract = async ({
 	cwd,
 	auth_token,
 	opts = { cache: true },
-}: DownloadAndExtract, fetcher: Fetcher) => {
+}: DownloadAndExtract, fetcher: Fetcher = GithubFetcher) => {
 	const caching = opts.cache;
 	cwd = cwd ?? process.cwd();
 	dest = dest ?? repo.name;
@@ -127,7 +127,7 @@ export const downloadAndExtract = async ({
 /**
  * Wrapper around `downloadAndExtract`, which automatically attempts to re-download the tarball if extraction fails
  */
-export const downloadRepo = async (opts: DownloadAndExtract, fetcher: Fetcher = GithubFetcher) => {
+export const downloadRepo = async (opts: DownloadAndExtract, fetcher?: Fetcher) => {
 	try {
 		await downloadAndExtract(opts, fetcher);
 	} catch (e: any) {
