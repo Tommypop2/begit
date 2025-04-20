@@ -28,12 +28,12 @@
 		"scaffolding",
 		"cli"
 	],
-	"devDependencies": {},
 	"dependencies": {
+		"@begit/core": "workspace:*",
 		"@clack/prompts": "^0.10.1",
 		"cmd-ts": "^0.13.0",
 		"tiny-updater": "^3.5.3",
-		"@begit/core": "workspace:*"
+		"yoctocolors": "^2.1.1"
 	},
 	"publishConfig": {
 		"access": "public"

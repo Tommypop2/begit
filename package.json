@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"scripts": {
 		"build": "turbo run build",
+		"start": "turbo run build && node packages/cli/dist/index.js",
 		"test": "turbo run test",
 		"release": "pnpm build && changeset publish",
 		"format": "biome format ./packages --write",
@@ -20,10 +21,13 @@
 		"@changesets/cli": "^2.29.1",
 		"@types/node": "^22.14.1",
 		"jiti": "^2.4.2",
-		"turbo": "^2.5.0",
-		"vitest": "^3.1.1",
 		"tsup": "^8.4.0",
-		"typescript": "^5.8.3"
+		"turbo": "^2.5.0",
+		"typescript": "^5.8.3",
+		"vitest": "^3.1.1"
 	},
-	"packageManager": "pnpm@10.8.0"
+	"packageManager": "pnpm@10.8.0",
+	"dependencies": {
+		"yocto-spinner": "^0.2.1"
+	}
 }

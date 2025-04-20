@@ -14,6 +14,9 @@ import { downloadRepo, matchFetcher } from "@begit/core";
 import {
 	getMostRecentCachedCommit,
 } from "@begit/core";
+import yoctoSpinner from "yocto-spinner";
+import yoctoColors from "yoctocolors";
+
 const main = async () => {
 	updater({ name, version, ttl: 86_400_000 });
 	const cli = command({
@@ -47,6 +50,7 @@ const main = async () => {
 			}),
 		},
 		async handler({ url, dest, subdir, token, no_cache }) {
+			console.log(`Begit ${yoctoColors.bold("v" + version)}`)
 			const parts = url.split("/");
 			const source = parts.find(p => p.includes(".com"))?.replace(".com", "").toLowerCase() ?? "github";
 			const fetcher = source ? matchFetcher(source) : undefined;
@@ -60,8 +64,10 @@ const main = async () => {
 			const owner = parts.pop();
 			if (!repoName || !owner) throw new Error("Invalid URL");
 			let hash: string | undefined;
+			const commitFetchSpinner = yoctoSpinner({ text: "Fetching latest commit" }).start();
 			try {
 				hash = await fetcher.fetchLatestCommit({ owner, name: repoName, branch }, token);
+				commitFetchSpinner.success("Commit fetched!")
 			} catch (_) {
 				// Unable to fetch commit hash so use most recently cached value
 				const cached = await getMostRecentCachedCommit(owner, repoName);
@@ -69,17 +75,27 @@ const main = async () => {
 					throw new Error("Unable to fetch repository or retrieve from cache");
 				}
 				const x = new Date(cached.timestamp);
-				console.log("Can't fetch repository from the internet");
-				console.log(`Using cached repository from ${x.toUTCString()}`);
 				hash = cached.hash;
+				commitFetchSpinner.warning("Can't fetch repository from the internet")
+				console.log(`Using cached repository from ${x.toUTCString()}`);
 			}
 			if (!hash) throw new Error("Unable to retrieve a valid commit hash");
-			await downloadRepo({
-				repo: { owner, name: repoName, branch, subdir, hash },
-				dest,
-				opts: { cache: !no_cache },
-				auth_token: token,
-			}, fetcher);
+			const downloadSpinner = yoctoSpinner({ text: "Downloading repository..." }).start();
+			try {
+				await downloadRepo({
+					repo: { owner, name: repoName, branch, subdir, hash },
+					dest,
+					opts: { cache: !no_cache },
+					auth_token: token,
+				}, fetcher);
+				downloadSpinner.success("Download complete!");
+				const destination = dest ? dest : repoName
+				console.log(`Written to ${yoctoColors.bold(destination)}`)
+			}
+			catch (e) {
+				downloadSpinner.error("Downloading repository failed :(")
+				console.error(e);
+			}
 		},
 	});
 	const args = process.argv.slice(2);

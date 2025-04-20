@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      yocto-spinner:
+        specifier: ^0.2.1
+        version: 0.2.1
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
@@ -65,6 +69,9 @@ importers:
       tiny-updater:
         specifier: ^3.5.3
         version: 3.5.3
+      yoctocolors:
+        specifier: ^2.1.1
+        version: 2.1.1
 
   packages/core:
     dependencies:
@@ -1495,6 +1502,14 @@ packages:
     resolution: {integrity: sha512-YgvUTfwqyc7UXVMrB+SImsVYSmTS8X/tSrtdNZMImM+n7+QTriRXyXim0mBrTXNeqzVF0KWGgHPeiyViFFrNDw==}
     engines: {node: '>=18'}
 
+  yocto-spinner@0.2.1:
+    resolution: {integrity: sha512-lHHxjh0bXaLgdJy3cNnVb/F9myx3CkhrvSOEVTkaUgNMXnYFa2xYPVhtGnqhh3jErY2gParBOHallCbc7NrlZQ==}
+    engines: {node: '>=18.19'}
+
+  yoctocolors@2.1.1:
+    resolution: {integrity: sha512-GQHQqAopRhwU8Kt1DDM8NjibDXHC8eoh1erhGAJPEyveY9qqVeXvVikNKrDz69sHowPMorbPUrH/mx8c50eiBQ==}
+    engines: {node: '>=18'}
+
 snapshots:
 
   '@babel/runtime@7.26.0':
@@ -2776,3 +2791,9 @@ snapshots:
       strip-ansi: 7.1.0
 
   yallist@5.0.0: {}
+
+  yocto-spinner@0.2.1:
+    dependencies:
+      yoctocolors: 2.1.1
+
+  yoctocolors@2.1.1: {}
