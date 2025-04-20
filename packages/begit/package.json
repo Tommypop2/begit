@@ -27,12 +27,7 @@
 		"scaffolding",
 		"cli"
 	],
-	"devDependencies": {},
 	"dependencies": {
-		"@clack/prompts": "^0.10.1",
-		"cmd-ts": "^0.13.0",
-		"tiny-updater": "^3.5.3",
-		"@begit/core": "workspace:*",
 		"@begit/cli": "workspace:*"
 	},
 	"publishConfig": {
