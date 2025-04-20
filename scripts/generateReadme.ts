@@ -9,4 +9,7 @@ import { readFile, writeFile } from "fs/promises";
 		.replace("{{core}}", coreREADME.split("\n").slice(1).join("\n"));
 
 	await writeFile("README.md", generated, "utf-8");
+
+	// Copy generated README into `packages/begit`
+	await writeFile("packages/begit/README.md", generated, "utf-8");
 })();

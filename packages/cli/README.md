@@ -21,12 +21,14 @@ begit
 
 ARGUMENTS:
   <URL>         - The URL to clone
-  [Destination] - a string [optional]
+  [Destination] - Folder to clone into [optional]
 
 OPTIONS:
-  --subdir, -s <str> - a string [optional]
+  --subdir, -s <str> - Subdirectory of repository to clone [optional]
+  --token, -t <str>  - GitHub API Token [optional]
 
 FLAGS:
+  --no-cache - Disables caching the downloaded tarball for the future
   --help, -h - show help
 ```
 
