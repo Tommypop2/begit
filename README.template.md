@@ -20,9 +20,6 @@ A smaller and lighter degit alternative with Typescript support.
   - Can fetch from different git providers. You can even provide your own fetcher!
 
 ## Begit CLI
-
 {{cli}}
-
 ## API Reference
-
 {{core}}
