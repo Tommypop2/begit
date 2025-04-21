@@ -42,18 +42,6 @@ importers:
       '@begit/cli':
         specifier: workspace:*
         version: link:../cli
-      '@begit/core':
-        specifier: workspace:*
-        version: link:../core
-      '@clack/prompts':
-        specifier: ^0.10.1
-        version: 0.10.1
-      cmd-ts:
-        specifier: ^0.13.0
-        version: 0.13.0
-      tiny-updater:
-        specifier: ^3.5.3
-        version: 3.5.3
 
   packages/cli:
     dependencies:
