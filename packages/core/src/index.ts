@@ -128,10 +128,12 @@ export const downloadAndExtract = async ({
  * Wrapper around `downloadAndExtract`, which automatically attempts to re-download the tarball if extraction fails
  */
 export const downloadRepo = async (opts: DownloadAndExtract, fetcher?: Fetcher) => {
+	// Attempt refetching
+	let retries = 2;
 	try {
 		await downloadAndExtract(opts, fetcher);
 	} catch (e: any) {
-		if (e.tarCode !== "TAR_ABORT") throw e;
+		if (e.tarCode !== "TAR_ABORT" || --retries === 0) throw e;
 		// Assume tarball is corrupted and attempt to refetch
 		const tarPath = e.file as string;
 		await unlink(tarPath);
