@@ -10,10 +10,7 @@
 		"url": "https://github.com/Tommypop2/begit"
 	},
 	"type": "module",
-	"files": [
-		"dist",
-		"types"
-	],
+	"files": ["dist", "types"],
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
 	"types": "./types/index.d.ts",
@@ -33,11 +30,7 @@
 		"test": "vitest run",
 		"build": "tsc && tsup"
 	},
-	"keywords": [
-		"git",
-		"template",
-		"scaffolding"
-	],
+	"keywords": ["git", "template", "scaffolding"],
 	"devDependencies": {
 		"@types/tar": "^6.1.13"
 	},

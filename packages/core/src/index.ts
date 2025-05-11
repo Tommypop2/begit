@@ -1,10 +1,5 @@
 import { join } from "path";
-import {
-	cachedir,
-	cacheFileName,
-	getFileWithHash,
-	toFile,
-} from "./utils";
+import { cachedir, cacheFileName, getFileWithHash, toFile } from "./utils";
 import { extract } from "tar/extract";
 import { list } from "tar/list";
 import { mkdir, unlink } from "fs/promises";
@@ -106,13 +101,10 @@ export type DownloadAndExtract = {
 /**
  * Downloads given repository to a folder.
  */
-export const downloadAndExtract = async ({
-	repo,
-	dest,
-	cwd,
-	auth_token,
-	opts = { cache: true },
-}: DownloadAndExtract, fetcher: Fetcher = GithubFetcher) => {
+export const downloadAndExtract = async (
+	{ repo, dest, cwd, auth_token, opts = { cache: true } }: DownloadAndExtract,
+	fetcher: Fetcher = GithubFetcher,
+) => {
 	const caching = opts.cache;
 	cwd = cwd ?? process.cwd();
 	dest = dest ?? repo.name;
@@ -127,7 +119,10 @@ export const downloadAndExtract = async ({
 /**
  * Wrapper around `downloadAndExtract`, which automatically attempts to re-download the tarball if extraction fails
  */
-export const downloadRepo = async (opts: DownloadAndExtract, fetcher?: Fetcher) => {
+export const downloadRepo = async (
+	opts: DownloadAndExtract,
+	fetcher?: Fetcher,
+) => {
 	// Attempt refetching
 	let retries = 2;
 	try {
