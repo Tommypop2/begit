@@ -102,7 +102,7 @@ await downloadRepo({
   branch: undefined,
   subdir: undefined,
  },
- "cool_project",
+ dest: "cool_project",
 });
 ```
 
@@ -125,7 +125,7 @@ await downloadRepo({
   subdir: undefined,
   hash: custom_hash,
  },
- "cool_project",
+ dest: "cool_project",
 });
 ```
 
@@ -144,7 +144,7 @@ await downloadRepo({
   subdir: undefined,
   hash: most_recent_hash,
  },
- "cool_project",
+ dest: "cool_project",
 });
 ```
 
@@ -162,6 +162,6 @@ await downloadRepo({
   subdir: undefined,
   hash: most_recent_hash,
  },
- "cool_project",
+ dest: "cool_project",
 }, fetcher);
 ```
