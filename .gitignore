@@ -3,3 +3,4 @@ dist
 types
 .turbo
 testing
+tmp_test
