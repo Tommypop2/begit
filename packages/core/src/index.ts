@@ -3,7 +3,7 @@ import { cachedir, cacheFileName, getFileWithHash, toFile } from "./utils";
 import { extract } from "tar/extract";
 import { list } from "tar/list";
 import { mkdir, unlink } from "fs/promises";
-import { Fetcher, GithubFetcher } from "./fetchers";
+import { type Fetcher, GithubFetcher } from "./fetchers";
 export * from "./utils";
 export * from "./fetchers";
 export type Repository = {

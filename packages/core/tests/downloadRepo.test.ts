@@ -15,7 +15,7 @@ describe("downloadRepo", () => {
 		});
 		expect(
 			existsSync("./tmp_test/begit/package.json") &&
-			existsSync("./tmp_test/begit/packages/core/src/index.ts"),
+				existsSync("./tmp_test/begit/packages/core/src/index.ts"),
 		);
 	});
 });

@@ -1,4 +1,4 @@
-import { Repository } from ".";
+import type { Repository } from ".";
 import type { GitHubCommitData, Tarball } from "./utils";
 export type FetcherSource = "github" | "gitlab";
 export type Fetcher = {
