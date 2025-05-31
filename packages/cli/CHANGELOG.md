@@ -1,5 +1,13 @@
 # @begit/cli
 
+## 0.3.3
+
+### Patch Changes
+
+- Fix bug left in from debugging
+- Updated dependencies
+  - @begit/core@0.3.3
+
 ## 0.3.2
 
 ### Patch Changes

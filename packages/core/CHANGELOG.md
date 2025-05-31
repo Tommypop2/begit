@@ -1,5 +1,11 @@
 # @begit/core
 
+## 0.3.3
+
+### Patch Changes
+
+- Fix bug left in from debugging
+
 ## 0.3.2
 
 ### Patch Changes

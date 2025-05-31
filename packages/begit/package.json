@@ -1,6 +1,6 @@
 {
 	"name": "begit",
-	"version": "0.3.2",
+	"version": "0.3.3",
 	"description": "A CLI for using begit",
 	"author": "Thomas Beer",
 	"license": "MIT",
