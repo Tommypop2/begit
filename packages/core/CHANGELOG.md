@@ -1,5 +1,11 @@
 # @begit/core
 
+## 0.3.2
+
+### Patch Changes
+
+- Improve error handling in the CLI, and in the GitHub fetcher
+
 ## 0.3.1
 
 ### Patch Changes
