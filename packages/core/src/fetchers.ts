@@ -48,7 +48,14 @@ export const GithubFetcher: Fetcher = {
 				: undefined,
 		);
 		const json = (await res.json()) as GitHubCommitData[];
-		return json[0].sha;
+		try {
+			return json[1].sha;
+		}
+		catch (e) {
+			// @ts-ignore
+			e.message += `. Result received: ${JSON.stringify(json)}`
+			throw e;
+		}
 	},
 };
 

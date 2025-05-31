@@ -48,7 +48,7 @@ const main = async () => {
 			}),
 		},
 		async handler({ url, dest, subdir, token, no_cache }) {
-			console.log(`Begit ${yoctoColors.bold("v" + version)}`);
+			console.log(`Begit ${yoctoColors.bold(`v${version}`)}`);
 			const parts = url.split("/");
 			const source =
 				parts
@@ -59,7 +59,7 @@ const main = async () => {
 			if (!fetcher) {
 				throw Error(`Source "${source}" isn't supported`);
 			}
-			if (parts.length == 0) {
+			if (parts.length === 0) {
 				throw Error("Invalid URL");
 			}
 			const [repoName, branch] = parts.pop()!.split("#");
@@ -75,11 +75,12 @@ const main = async () => {
 					token,
 				);
 				commitFetchSpinner.success("Commit fetched!");
-			} catch (_) {
+			} catch (e) {
 				// Unable to fetch commit hash so use most recently cached value
 				const cached = await getMostRecentCachedCommit(owner, repoName);
 				if (!cached) {
-					throw new Error("Unable to fetch repository or retrieve from cache");
+					throw e;
+					// throw new Error("Unable to fetch repository or retrieve from cache");
 				}
 				const x = new Date(cached.timestamp);
 				hash = cached.hash;
