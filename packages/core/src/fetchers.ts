@@ -22,13 +22,13 @@ export const GithubFetcher: Fetcher = {
 	source: "github",
 	async fetchTarball(repo, { ref, auth_token } = {}) {
 		ref = ref ?? "HEAD";
-		const auth = auth_token ?? process.env["BEGIT_GH_API_KEY"];
+		const auth = auth_token ?? process.env.BEGIT_GH_API_KEY;
 		const res = await fetch(
 			`https://api.github.com/repos/${repo.owner}/${repo.name}/tarball/${ref}`,
 			auth
 				? {
-						headers: { Authorization: `Bearer ${auth}` },
-					}
+					headers: { Authorization: `Bearer ${auth}` },
+				}
 				: undefined,
 		);
 		return {
@@ -38,14 +38,13 @@ export const GithubFetcher: Fetcher = {
 	},
 	async fetchLatestCommit(repo, auth_token) {
 		const branch = repo.branch;
-		const auth = auth_token ?? process.env["BEGIT_GH_API_KEY"];
+		const auth = auth_token ?? process.env.BEGIT_GH_API_KEY;
 		const res = await fetch(
-			`https://api.github.com/repos/${repo.owner}/${repo.name}/commits?per_page=1` +
-				(branch ? `&sha=${branch}` : ""),
+			`https://api.github.com/repos/${repo.owner}/${repo.name}/commits?per_page=1${branch ? `&sha=${branch}` : ""}`,
 			auth
 				? {
-						headers: { Authorization: `Bearer ${auth}` },
-					}
+					headers: { Authorization: `Bearer ${auth}` },
+				}
 				: undefined,
 		);
 		const json = (await res.json()) as GitHubCommitData[];
@@ -57,13 +56,13 @@ export const GitlabFetcher: Fetcher = {
 	source: "gitlab",
 	async fetchTarball(repo, { ref, auth_token } = {}) {
 		ref = ref ?? "HEAD";
-		const auth = auth_token ?? process.env["BEGIT_GL_API_KEY"];
+		const auth = auth_token ?? process.env.BEGIT_GL_API_KEY;
 		const res = await fetch(
 			`https://gitlab.com/api/v4/projects/${repo.owner}%2F${repo.name}/repository/archive?sha=${ref}`,
 			auth
 				? {
-						headers: { Authorization: `Bearer ${auth}` },
-					}
+					headers: { Authorization: `Bearer ${auth}` },
+				}
 				: undefined,
 		);
 		return {
@@ -75,13 +74,13 @@ export const GitlabFetcher: Fetcher = {
 		// HEAD should be the tip of the default branch.
 		// On gitlab, this is better than just doing `/commits`, as passing a REF gives only a single commit which is less data
 		const branch = repo.branch ?? "HEAD";
-		const auth = auth_token ?? process.env["BEGIT_GH_API_KEY"];
+		const auth = auth_token ?? process.env.BEGIT_GH_API_KEY;
 		const res = await fetch(
 			`https://gitlab.com/api/v4/projects/${repo.owner}%2F${repo.name}/repository/commits?ref_name=${branch}`,
 			auth
 				? {
-						headers: { Authorization: `Bearer ${auth}` },
-					}
+					headers: { Authorization: `Bearer ${auth}` },
+				}
 				: undefined,
 		);
 		const json = (await res.json()) as { id: string }[];

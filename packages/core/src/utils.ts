@@ -68,8 +68,8 @@ export const getMostRecentCachedCommit = async (
 	for (const file of files) {
 		const split = file.split("-");
 		const [owner, name, hash] = split;
-		const timestamp = parseInt(split[3]);
-		if (owner == repoOwner && name == repoName) {
+		const timestamp = Number.parseInt(split[3]);
+		if (owner === repoOwner && name === repoName) {
 			// Right repository, so check if timestamp is more recent
 			if (!file_with_max_stamp || timestamp > file_with_max_stamp.timestamp)
 				file_with_max_stamp = { hash: hash, timestamp };
