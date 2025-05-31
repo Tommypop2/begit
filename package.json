@@ -20,12 +20,12 @@
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"@changesets/cli": "^2.29.4",
-		"@types/node": "^22.15.21",
+		"@types/node": "^22.15.29",
 		"jiti": "^2.4.2",
 		"tsup": "^8.5.0",
-		"turbo": "^2.5.3",
+		"turbo": "^2.5.4",
 		"typescript": "^5.8.3",
 		"vitest": "^3.1.4"
 	},
-	"packageManager": "pnpm@10.10.0"
+	"packageManager": "pnpm@10.11.0"
 }
