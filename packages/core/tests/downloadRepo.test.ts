@@ -1,10 +1,10 @@
 import { mkdir, rm } from "fs/promises";
-import { beforeAll, describe, expect, it, test } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, test } from "vitest";
 import { downloadRepo } from "../src";
 import { existsSync } from "fs";
 
 describe("downloadRepo", () => {
-	beforeAll(async () => {
+	afterAll(async () => {
 		if (existsSync("./tmp_test")) await rm("./tmp_test", { recursive: true });
 	});
 
@@ -15,7 +15,14 @@ describe("downloadRepo", () => {
 		});
 		expect(
 			existsSync("./tmp_test/begit/package.json") &&
-				existsSync("./tmp_test/begit/packages/core/src/index.ts"),
+			existsSync("./tmp_test/begit/packages/core/src/index.ts"),
 		);
+	});
+	it("can download a nested subdirectory", async () => {
+		await downloadRepo({
+			repo: { owner: "Tommypop2", name: "begit", subdir: ".github/workflows" },
+			dest: "./tmp_test/test-nested",
+		});
+		expect(existsSync("./tmp_test/test-nested/tests.yml"))
 	});
 });
