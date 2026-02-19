@@ -1,5 +1,11 @@
 # @begit/core
 
+## 0.3.4
+
+### Patch Changes
+
+- Update all dependencies
+
 ## 0.3.3
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # begit
 
+## 0.3.4
+
+### Patch Changes
+
+- Update all dependencies
+- Updated dependencies
+  - @begit/cli@0.3.4
+
 ## 0.3.3
 
 ### Patch Changes
