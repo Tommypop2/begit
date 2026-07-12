@@ -79,13 +79,14 @@ export const extractFile = async (
 	const strip = dir ? dir.split("/").length - 1 : 1;
 	await extract(
 		{
-			// @ts-expect-error
 			file: tarPath.toString(),
 			strip,
 			C: dest,
 			k: !overwrite,
 		},
-		dir ? [dir] : undefined,
+		// TODO: Check that using [] instead of `undefined` works as expected (seems to but need to 
+		// verify more properly before changing)
+		dir ? [dir] : undefined as any as string[],
 	);
 };
 export type DownloadAndExtractOptions = {
