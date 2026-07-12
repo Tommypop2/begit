@@ -18,14 +18,14 @@
 		"./packages/*"
 	],
 	"devDependencies": {
-		"@biomejs/biome": "^2.4.2",
-		"@changesets/cli": "^2.29.8",
-		"@types/node": "^25.2.3",
-		"jiti": "^2.6.1",
+		"@biomejs/biome": "^2.5.3",
+		"@changesets/cli": "^2.31.0",
+		"@types/node": "^26.1.1",
+		"jiti": "^2.7.0",
 		"tsup": "^8.5.1",
-		"turbo": "^2.8.10",
-		"typescript": "^5.9.3",
-		"vitest": "^4.0.18"
+		"turbo": "^2.10.4",
+		"typescript": "^7.0.2",
+		"vitest": "^4.1.10"
 	},
-	"packageManager": "pnpm@10.30.0"
+	"packageManager": "pnpm@11.12.0"
 }

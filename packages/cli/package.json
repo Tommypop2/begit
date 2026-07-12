@@ -30,11 +30,11 @@
 	],
 	"dependencies": {
 		"@begit/core": "workspace:*",
-		"@clack/prompts": "^1.0.1",
+		"@clack/prompts": "^1.7.0",
 		"cmd-ts": "^0.15.0",
 		"tiny-updater": "^3.7.0",
 		"yoctocolors": "^2.1.2",
-		"yocto-spinner": "^1.1.0"
+		"yocto-spinner": "^1.2.1"
 	},
 	"publishConfig": {
 		"access": "public"

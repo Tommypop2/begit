@@ -12,7 +12,8 @@
 		"allowSyntheticDefaultImports": true,
 		"strict": true,
 		"noFallthroughCasesInSwitch": true,
-		"outDir": "types"
+		"outDir": "types",
+		"rootDir": "./src"
 	},
 	"include": ["src/*"]
 }
