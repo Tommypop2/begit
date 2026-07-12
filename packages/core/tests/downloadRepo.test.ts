@@ -24,5 +24,7 @@ describe("downloadRepo", () => {
 			dest: "./tmp_test/test-nested",
 		});
 		expect(existsSync("./tmp_test/test-nested/tests.yml"))
+		// Check that only the desired folder has been cloned
+		expect(existsSync("./tmp_test/test-nested/package.json")).toBe(false);
 	});
 });
