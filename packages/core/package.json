@@ -31,7 +31,7 @@
 	},
 	"scripts": {
 		"test": "vitest run",
-		"build": "tsc && tsup"
+		"build": "tsc && tsdown"
 	},
 	"keywords": [
 		"git",
