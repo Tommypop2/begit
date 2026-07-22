@@ -15,7 +15,10 @@ export type Fetcher = {
 	 * @param auth_token Optional parameter to authenticate Github API requests
 	 * @returns Most recent commit hash in repository
 	 */
-	fetchLatestCommit: (repo: Repository, auth_token?: string) => Promise<string>;
+	fetchLatestCommit: (
+		repo: Repository,
+		auth_token?: string,
+	) => Promise<string | undefined>;
 };
 
 export const GithubFetcher: Fetcher = {
@@ -24,11 +27,12 @@ export const GithubFetcher: Fetcher = {
 		ref = ref ?? "HEAD";
 		const auth = auth_token ?? process.env.BEGIT_GH_API_KEY;
 		const res = await fetch(
-			`https://api.github.com/repos/${repo.owner}/${repo.name}/tarball/${ref}`,
+			// `https://api.github.com/repos/${repo.owner}/${repo.name}/tarball/${ref}`,
+			`https://github.com/${repo.owner}/${repo.name}/archive/${ref}.tar.gz`,
 			auth
 				? {
-					headers: { Authorization: `Bearer ${auth}` },
-				}
+						headers: { Authorization: `Bearer ${auth}` },
+					}
 				: undefined,
 		);
 		return {
@@ -43,18 +47,18 @@ export const GithubFetcher: Fetcher = {
 			`https://api.github.com/repos/${repo.owner}/${repo.name}/commits?per_page=1${branch ? `&sha=${branch}` : ""}`,
 			auth
 				? {
-					headers: { Authorization: `Bearer ${auth}` },
-				}
+						headers: { Authorization: `Bearer ${auth}` },
+					}
 				: undefined,
 		);
 		const json = (await res.json()) as GitHubCommitData[];
 		try {
 			return json[0].sha;
-		}
-		catch (e) {
+		} catch (e) {
 			// @ts-ignore
-			e.message += `. Result received: ${JSON.stringify(json)}`
-			throw e;
+			e.message += `. Result received: ${JSON.stringify(json)}`;
+			// Couldn't return the latest commit hash, so return undefined to indicate failure
+			return undefined;
 		}
 	},
 };
@@ -68,8 +72,8 @@ export const GitlabFetcher: Fetcher = {
 			`https://gitlab.com/api/v4/projects/${repo.owner}%2F${repo.name}/repository/archive?sha=${ref}`,
 			auth
 				? {
-					headers: { Authorization: `Bearer ${auth}` },
-				}
+						headers: { Authorization: `Bearer ${auth}` },
+					}
 				: undefined,
 		);
 		return {
@@ -86,8 +90,8 @@ export const GitlabFetcher: Fetcher = {
 			`https://gitlab.com/api/v4/projects/${repo.owner}%2F${repo.name}/repository/commits?ref_name=${branch}`,
 			auth
 				? {
-					headers: { Authorization: `Bearer ${auth}` },
-				}
+						headers: { Authorization: `Bearer ${auth}` },
+					}
 				: undefined,
 		);
 		const json = (await res.json()) as { id: string }[];

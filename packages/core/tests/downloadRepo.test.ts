@@ -15,7 +15,7 @@ describe("downloadRepo", () => {
 		});
 		expect(
 			existsSync("./tmp_test/begit/package.json") &&
-			existsSync("./tmp_test/begit/packages/core/src/index.ts"),
+				existsSync("./tmp_test/begit/packages/core/src/index.ts"),
 		);
 	});
 	it("can download a nested subdirectory", async () => {
@@ -23,7 +23,7 @@ describe("downloadRepo", () => {
 			repo: { owner: "Tommypop2", name: "begit", subdir: ".github/workflows" },
 			dest: "./tmp_test/test-nested",
 		});
-		expect(existsSync("./tmp_test/test-nested/tests.yml"))
+		expect(existsSync("./tmp_test/test-nested/tests.yml"));
 		// Check that only the desired folder has been cloned
 		expect(existsSync("./tmp_test/test-nested/package.json")).toBe(false);
 	});

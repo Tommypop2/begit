@@ -1,5 +1,11 @@
 import { join } from "path";
-import { cachedir, cacheFileName, getFileWithHash, toFile } from "./utils";
+import {
+	begitDir,
+	cachedir,
+	cacheFileName,
+	getFileWithHash,
+	toFile,
+} from "./utils";
 import { extract } from "tar/extract";
 import { list } from "tar/list";
 import { mkdir, unlink } from "fs/promises";
@@ -27,15 +33,20 @@ export const downloadToFile = async (
 	auth_token?: string,
 ): Promise<string> => {
 	const { owner, name } = repo;
-	let hash = repo.hash || await fetcher.fetchLatestCommit(repo, auth_token);
+	const hash = repo.hash;
 	// Check if we have already cached the desired repo and hash
-	const cached = await getFileWithHash(owner, name, hash);
-	if (cached) return join(cachedir(), cached);
+	if (hash) {
+		const cached = await getFileWithHash(owner, name, hash);
+		if (cached) return join(cachedir(), cached);
+	}
 	// Download tarball and timestamp filename
-	const location = join(
-		cachedir(),
-		cacheFileName(owner, name, hash, Date.now()),
-	);
+	const location = hash
+		? join(
+				cachedir(),
+				cacheFileName(owner, name, hash, Date.now()),
+				// Don't cache the tarball if we don't have a hash
+			)
+		: join(begitDir(), `${owner}-${name}-${Date.now()}.tar.gz`);
 	const tarball = await fetcher.fetchTarball(repo, { ref: hash, auth_token });
 	await toFile(location, tarball);
 	return location;
@@ -81,9 +92,9 @@ export const extractFile = async (
 			C: dest,
 			k: !overwrite,
 		},
-		// TODO: Check that using [] instead of `undefined` works as expected (seems to but need to 
+		// TODO: Check that using [] instead of `undefined` works as expected (seems to but need to
 		// verify more properly before changing)
-		dir ? [dir] : undefined as any as string[],
+		dir ? [dir] : (undefined as any as string[]),
 	);
 };
 export type DownloadAndExtractOptions = {
@@ -109,8 +120,8 @@ export const downloadAndExtract = async (
 	const tarPath = await downloadToFile(fetcher, repo, auth_token);
 	await extractFile(tarPath, join(cwd, dest), repo.subdir);
 
-	// Remove tarball download if not caching
-	if (!caching) {
+	// Remove tarball download if not caching (i.e if caching is disabled or the tarball was downloaded to temp location)
+	if (!caching || !tarPath.startsWith(cachedir())) {
 		await unlink(tarPath);
 	}
 };

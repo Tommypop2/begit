@@ -69,38 +69,41 @@ const main = async () => {
 			const commitFetchSpinner = yoctoSpinner({
 				text: "Fetching latest commit",
 			}).start();
-			try {
-				hash = await fetcher.fetchLatestCommit(
-					{ owner, name: repoName, branch },
-					token,
-				);
-				commitFetchSpinner.success("Commit fetched!");
-			} catch (e) {
-				// Unable to fetch commit hash so use most recently cached value
-				const cached = await getMostRecentCachedCommit(owner, repoName);
-				if (!cached) {
-					throw e;
-					// throw new Error("Unable to fetch repository or retrieve from cache");
-				}
+
+			hash = await fetcher.fetchLatestCommit(
+				{ owner, name: repoName, branch },
+				token,
+			);
+			if (hash) commitFetchSpinner.success("Commit fetched!");
+			else commitFetchSpinner.warning("Unable to fetch latest commit");
+			const mostRecentCachedCommitSpinner = yoctoSpinner({
+				text: "Fetching latest cached commit",
+			}).start();
+			// Unable to fetch commit hash so use most recently cached value
+			let cached = await getMostRecentCachedCommit(owner, repoName);
+			if (cached) {
 				const x = new Date(cached.timestamp);
 				hash = cached.hash;
-				commitFetchSpinner.warning("Can't fetch repository from the internet");
-				console.log(`Using cached repository from ${x.toUTCString()}`);
+				mostRecentCachedCommitSpinner.success(
+					`Using cached repository from ${x.toUTCString()}`,
+				);
+			} else {
+				mostRecentCachedCommitSpinner.warning(
+					`Unable to find cached commit, attempting download from ${hash?.slice(0, 6) || "HEAD"}`,
+				);
 			}
-			if (!hash) throw new Error("Unable to retrieve a valid commit hash");
+
 			const downloadSpinner = yoctoSpinner({
 				text: "Downloading repository...",
 			}).start();
 			try {
-				await downloadRepo(
-					{
-						repo: { owner, name: repoName, branch, subdir, hash },
-						dest,
-						opts: { cache: !no_cache },
-						auth_token: token,
-					},
-					fetcher,
-				);
+				const args = {
+					repo: { owner, name: repoName, branch, subdir, hash },
+					dest,
+					opts: { cache: !no_cache },
+					auth_token: token,
+				};
+				await downloadRepo(args, fetcher);
 				downloadSpinner.success("Download complete!");
 				const destination = dest ? dest : repoName;
 				console.log(`Written to ${yoctoColors.bold(destination)}`);
