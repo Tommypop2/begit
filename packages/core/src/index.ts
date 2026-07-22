@@ -27,10 +27,7 @@ export const downloadToFile = async (
 	auth_token?: string,
 ): Promise<string> => {
 	const { owner, name } = repo;
-	let hash = repo.hash;
-	if (!hash) {
-		hash = await fetcher.fetchLatestCommit(repo, auth_token);
-	}
+	let hash = repo.hash || await fetcher.fetchLatestCommit(repo, auth_token);
 	// Check if we have already cached the desired repo and hash
 	const cached = await getFileWithHash(owner, name, hash);
 	if (cached) return join(cachedir(), cached);
