@@ -99,6 +99,8 @@ export const extractFile = async (
 };
 export type DownloadAndExtractOptions = {
 	cache: boolean;
+	/// whether or not to fetch the latest commit hash if it's not provided
+	fetch_latest_commit: boolean;
 };
 export type DownloadAndExtract = {
 	repo: Installable;
@@ -111,9 +113,13 @@ export type DownloadAndExtract = {
  * Downloads given repository to a folder.
  */
 export const downloadAndExtract = async (
-	{ repo, dest, cwd, auth_token, opts = { cache: true } }: DownloadAndExtract,
+	{ repo, dest, cwd, auth_token, opts = { cache: true, fetch_latest_commit: true } }: DownloadAndExtract,
 	fetcher: Fetcher = GithubFetcher,
 ) => {
+	// If there is no hash provided, and the user has requested to fetch the latest commit, fetch it now
+	if (!repo.hash && opts.fetch_latest_commit) {
+		repo.hash = await fetcher.fetchLatestCommit(repo, auth_token);
+	}
 	const caching = opts.cache;
 	cwd = cwd ?? process.cwd();
 	dest = dest ?? repo.name;

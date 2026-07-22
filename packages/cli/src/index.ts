@@ -100,7 +100,7 @@ const main = async () => {
 				const args = {
 					repo: { owner, name: repoName, branch, subdir, hash },
 					dest,
-					opts: { cache: !no_cache },
+					opts: { cache: !no_cache, fetch_latest_commit: false },
 					auth_token: token,
 				};
 				await downloadRepo(args, fetcher);
