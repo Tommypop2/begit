@@ -15,7 +15,7 @@
 		"types"
 	],
 	"bin": {
-		"begit": "./dist/index.js"
+		"begit": "./dist/index.mjs"
 	},
 	"scripts": {
 		"build": "tsc && tsdown",

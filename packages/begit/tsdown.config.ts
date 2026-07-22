@@ -11,8 +11,8 @@ export default defineConfig({
 	clean: true,
 	// external: [/^(?!(@begit\/cli))/],
 	treeshake: true,
-  deps: {
-    alwaysBundle: ["@begit/cli"],
-  },
-  dts: false,
+	deps: {
+		alwaysBundle: ["@begit/cli"],
+	},
+	dts: false,
 });

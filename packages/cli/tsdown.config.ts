@@ -6,7 +6,7 @@ export default defineConfig({
 	format: "esm",
 	// splitting: false,
 	sourcemap: true,
-	// minify: false,
+	// minify: true,
 	// bundle: true,
 	clean: true,
 	// noExternal: [/.*/],
@@ -15,5 +15,5 @@ export default defineConfig({
 		js: `import { createRequire } from "module";
 		const require = createRequire(import.meta.url);`,
 	},
-  dts: false,
+	dts: false,
 });
