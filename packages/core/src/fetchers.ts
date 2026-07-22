@@ -104,7 +104,7 @@ export const GitlabFetcher: Fetcher = {
  * @returns A fetcher that can fetch from that source
  */
 export const matchFetcher = (maybe_source: string): Fetcher | undefined => {
-	switch (maybe_source) {
+	switch (maybe_source.toLowerCase()) {
 		case "github":
 			return GithubFetcher;
 		case "gitlab":
