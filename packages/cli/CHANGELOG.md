@@ -1,5 +1,16 @@
 # @begit/cli
 
+## 0.4.0
+
+### Minor Changes
+
+- support fetching from GitHub without a hash and the API (means that repos can still be fetched when hitting the gh api limit)
+
+### Patch Changes
+
+- Updated dependencies
+  - @begit/core@0.4.0
+
 ## 0.3.5
 
 ### Patch Changes
