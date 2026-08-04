@@ -27,8 +27,7 @@ export const GithubFetcher: Fetcher = {
 		ref = ref ?? "HEAD";
 		const auth = auth_token ?? process.env.BEGIT_GH_API_KEY;
 		const res = await fetch(
-			// `https://api.github.com/repos/${repo.owner}/${repo.name}/tarball/${ref}`,
-			`https://github.com/${repo.owner}/${repo.name}/archive/${ref}.tar.gz`,
+			auth ? `https://api.github.com/repos/${repo.owner}/${repo.name}/tarball/${ref}` : `https://github.com/${repo.owner}/${repo.name}/archive/${ref}.tar.gz`,
 			auth
 				? {
 						headers: { Authorization: `Bearer ${auth}` },
