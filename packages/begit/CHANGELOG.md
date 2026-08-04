@@ -1,5 +1,13 @@
 # begit
 
+## 0.4.1
+
+### Patch Changes
+
+- fix issue where private repos couldn't be fetched
+- Updated dependencies
+  - @begit/cli@0.4.1
+
 ## 0.4.0
 
 ### Minor Changes
