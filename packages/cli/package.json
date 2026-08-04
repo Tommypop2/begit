@@ -40,8 +40,8 @@
 		"@clack/prompts": "^1.7.0",
 		"cmd-ts": "^0.15.0",
 		"tiny-updater": "^3.7.0",
-		"yoctocolors": "^2.1.2",
-		"yocto-spinner": "^1.2.1"
+		"yoctocolors": "^2.2.0",
+		"yocto-spinner": "^1.2.2"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -39,7 +39,7 @@
 		"scaffolding"
 	],
 	"dependencies": {
-		"tar": "^7.5.19"
+		"tar": "^7.5.22"
 	},
 	"publishConfig": {
 		"access": "public"
