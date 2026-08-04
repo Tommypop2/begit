@@ -27,6 +27,8 @@ export const GithubFetcher: Fetcher = {
 		ref = ref ?? "HEAD";
 		const auth = auth_token ?? process.env.BEGIT_GH_API_KEY;
 		const res = await fetch(
+			// `api.github.com` supports authentication, but `github.com` doesn't.
+			// So, use github.com where possible (to avoid rate limits), and only use the api endpoint when authentication is needed.
 			auth ? `https://api.github.com/repos/${repo.owner}/${repo.name}/tarball/${ref}` : `https://github.com/${repo.owner}/${repo.name}/archive/${ref}.tar.gz`,
 			auth
 				? {
